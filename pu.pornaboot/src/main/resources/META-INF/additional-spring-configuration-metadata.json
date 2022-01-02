@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "porna.starting-directory",
+  "type": "java.lang.String",
+  "description": "Starting directory for porna files'"
+}]}

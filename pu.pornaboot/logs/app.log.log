@@ -1,0 +1,931 @@
+2022-01-02 19:01:36.288  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1291087 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:01:36.289  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:01:36.293  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:01:36.343  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:01:36.346  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:01:37.178  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:01:37.186  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:01:37.186  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:01:37.186  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:01:37.222  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:01:37.223  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 876 ms
+2022-01-02 19:01:37.260  WARN pu2015 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'databaseUpdater': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'starting-directory' in value "${starting-directory}"
+2022-01-02 19:01:37.262  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Stopping service [Tomcat]
+2022-01-02 19:01:37.300 ERROR pu2015 --- [  restartedMain] g.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'databaseUpdater': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'starting-directory' in value "${starting-directory}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at pu.porna.Application.main(Application.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'starting-directory' in value "${starting-directory}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1330)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1309)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	... 22 common frames omitted
+2022-01-02 19:05:17.275  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:05:17.281  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1291649 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:05:17.281  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:05:17.321  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:05:17.321  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:05:18.044  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:05:18.056  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:05:18.057  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:05:18.057  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:05:18.095  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:05:18.096  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 774 ms
+2022-01-02 19:05:18.294  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:05:18.434  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:05:18.451  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:05:18.461  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:05:18.470  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 1.477 seconds (JVM running for 2.331)
+2022-01-02 19:06:06.441  INFO pu2015 --- [nio-8523-exec-1] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-01-02 19:06:57.094  INFO pu2015 --- [nio-8523-exec-5] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:06:57.140  INFO pu2015 --- [nio-8523-exec-5] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:06:57.195 ERROR pu2015 --- [nio-8523-exec-5] freemarker.runtime                       : Error executing FreeMarker template
+freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----
+	at freemarker.core.Include.accept(Include.java:164)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	... 51 common frames omitted
+2022-01-02 19:06:57.200 ERROR pu2015 --- [nio-8523-exec-5] cat].[localhost].[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] with root cause
+freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-01-02 19:06:57.210 ERROR pu2015 --- [nio-8523-exec-5] ror.ErrorMvcAutoConfiguration$StaticView : Cannot render error page for request [/files] and exception [Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] as the response has already been committed. As a result, the response may have the wrong status code.
+2022-01-02 19:07:48.926  INFO pu2015 --- [nio-8523-exec-7] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:07:48.956  INFO pu2015 --- [nio-8523-exec-7] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:07:48.969 ERROR pu2015 --- [nio-8523-exec-7] freemarker.runtime                       : Error executing FreeMarker template
+freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----
+	at freemarker.core.Include.accept(Include.java:164)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	... 51 common frames omitted
+2022-01-02 19:07:48.971 ERROR pu2015 --- [nio-8523-exec-7] cat].[localhost].[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] with root cause
+freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-01-02 19:07:48.979 ERROR pu2015 --- [nio-8523-exec-7] ror.ErrorMvcAutoConfiguration$StaticView : Cannot render error page for request [/files] and exception [Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] as the response has already been committed. As a result, the response may have the wrong status code.
+2022-01-02 19:08:11.686  INFO pu2015 --- [nio-8523-exec-9] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:08:11.715  INFO pu2015 --- [nio-8523-exec-9] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:08:11.719 ERROR pu2015 --- [nio-8523-exec-9] freemarker.runtime                       : Error executing FreeMarker template
+freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----
+	at freemarker.core.Include.accept(Include.java:164)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	... 51 common frames omitted
+2022-01-02 19:08:11.721 ERROR pu2015 --- [nio-8523-exec-9] cat].[localhost].[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] with root cause
+freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-01-02 19:08:11.727 ERROR pu2015 --- [nio-8523-exec-9] ror.ErrorMvcAutoConfiguration$StaticView : Cannot render error page for request [/files] and exception [Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] as the response has already been committed. As a result, the response may have the wrong status code.
+2022-01-02 19:08:27.781  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:08:27.812  INFO pu2015 --- [nio-8523-exec-1] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:08:27.817 ERROR pu2015 --- [nio-8523-exec-1] freemarker.runtime                       : Error executing FreeMarker template
+freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----
+	at freemarker.core.Include.accept(Include.java:164)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	... 51 common frames omitted
+2022-01-02 19:08:27.818 ERROR pu2015 --- [nio-8523-exec-1] cat].[localhost].[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is freemarker.core._MiscTemplateException: Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] with root cause
+freemarker.template.TemplateNotFoundException: Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+	at freemarker.template.Configuration.getTemplate(Configuration.java:2883)
+	at freemarker.core.Environment.getTemplateForInclusion(Environment.java:2913)
+	at freemarker.core.Include.accept(Include.java:162)
+	at freemarker.core.Environment.visit(Environment.java:347)
+	at freemarker.core.Environment.visit(Environment.java:353)
+	at freemarker.core.Environment.process(Environment.java:326)
+	at freemarker.template.Template.process(Template.java:383)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.processTemplate(FreeMarkerView.java:391)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.doRender(FreeMarkerView.java:304)
+	at org.springframework.web.servlet.view.freemarker.FreeMarkerView.renderMergedTemplateModel(FreeMarkerView.java:255)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:179)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1401)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1732)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-01-02 19:08:27.824 ERROR pu2015 --- [nio-8523-exec-1] ror.ErrorMvcAutoConfiguration$StaticView : Cannot render error page for request [/files] and exception [Template inclusion failed (for parameter value "paginator.ftl"):
+Template not found for name "paginator.ftl".
+The name was interpreted by this TemplateLoader: MultiTemplateLoader(loader1 = org.springframework.ui.freemarker.SpringTemplateLoader@66e29e85, loader2 = ClassTemplateLoader(resourceLoaderClass=org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer, basePackagePath="" /* relatively to resourceLoaderClass pkg */)).
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #include "paginator.ftl"  [in template "files.ftlh" at line 17, column 9]
+----] as the response has already been committed. As a result, the response may have the wrong status code.
+2022-01-02 19:09:36.031  INFO pu2015 --- [nio-8523-exec-4] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:09:36.060  INFO pu2015 --- [nio-8523-exec-4] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:11:40.623  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1291649 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:11:40.624  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:11:40.784  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:11:40.785  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:11:40.785  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:11:40.785  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:11:40.790  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:11:40.790  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 163 ms
+2022-01-02 19:11:40.839  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:11:40.873  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:11:40.880  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:11:40.880  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:11:40.884  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 0.29 seconds (JVM running for 384.745)
+2022-01-02 19:11:40.886  INFO pu2015 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-01-02 19:13:08.547  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1291649 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:13:08.547  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:13:08.625  WARN pu2015 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path resource [WEB-INF/ApplicationContext.xml]; nested exception is java.io.FileNotFoundException: class path resource [WEB-INF/ApplicationContext.xml] cannot be opened because it does not exist
+2022-01-02 19:13:08.641 ERROR pu2015 --- [  restartedMain] g.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path resource [WEB-INF/ApplicationContext.xml]; nested exception is java.io.FileNotFoundException: class path resource [WEB-INF/ApplicationContext.xml] cannot be opened because it does not exist
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:342)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.lambda$loadBeanDefinitionsFromImportedResources$0(ConfigurationClassBeanDefinitionReader.java:390)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsFromImportedResources(ConfigurationClassBeanDefinitionReader.java:354)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForConfigurationClass(ConfigurationClassBeanDefinitionReader.java:156)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitions(ConfigurationClassBeanDefinitionReader.java:129)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:343)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:247)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:746)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:564)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at pu.porna.Application.main(Application.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.io.FileNotFoundException: class path resource [WEB-INF/ApplicationContext.xml] cannot be opened because it does not exist
+	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:199)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:333)
+	... 27 common frames omitted
+2022-01-02 19:14:13.231  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1291649 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:14:13.232  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:14:13.366  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:14:13.367  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:14:13.367  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:14:13.367  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:14:13.372  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:14:13.372  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 138 ms
+2022-01-02 19:14:13.380  WARN pu2015 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+2022-01-02 19:14:13.381  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Stopping service [Tomcat]
+2022-01-02 19:14:13.386 ERROR pu2015 --- [  restartedMain] g.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at pu.porna.Application.main(Application.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1330)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1309)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	... 22 common frames omitted
+2022-01-02 19:15:14.221  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:15:14.226  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1293082 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:15:14.227  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:15:14.266  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:15:14.266  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:15:14.981  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:15:14.988  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:15:14.989  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:15:14.989  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:15:15.025  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:15:15.026  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 759 ms
+2022-01-02 19:15:15.064  WARN pu2015 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+2022-01-02 19:15:15.066  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Stopping service [Tomcat]
+2022-01-02 19:15:15.098 ERROR pu2015 --- [  restartedMain] g.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at pu.porna.Application.main(Application.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'mail.host' in value "${mail.host}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1330)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1309)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	... 22 common frames omitted
+2022-01-02 19:16:21.441  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:16:21.449  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1293292 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:16:21.449  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:16:21.487  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:16:21.487  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:16:22.227  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:16:22.235  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:16:22.235  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:16:22.235  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:16:22.272  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:16:22.273  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 786 ms
+2022-01-02 19:16:22.330  WARN pu2015 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailSender' defined in class path resource [pu/porna/config/MailConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.mail.MailSender]: Factory method 'mailSender' threw exception; nested exception is java.lang.NoClassDefFoundError: javax/mail/MessagingException
+2022-01-02 19:16:22.335  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Stopping service [Tomcat]
+2022-01-02 19:16:22.364 ERROR pu2015 --- [  restartedMain] g.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailSender' defined in class path resource [pu/porna/config/MailConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.mail.MailSender]: Factory method 'mailSender' threw exception; nested exception is java.lang.NoClassDefFoundError: javax/mail/MessagingException
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:658)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:486)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at pu.porna.Application.main(Application.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.mail.MailSender]: Factory method 'mailSender' threw exception; nested exception is java.lang.NoClassDefFoundError: javax/mail/MessagingException
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/mail/MessagingException
+	at pu.porna.config.MailConfig.mailSender(MailConfig.java:26)
+	at pu.porna.config.MailConfig$$EnhancerBySpringCGLIB$$5845b50a.CGLIB$mailSender$0(<generated>)
+	at pu.porna.config.MailConfig$$EnhancerBySpringCGLIB$$5845b50a$$FastClassBySpringCGLIB$$f24fd20d.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at pu.porna.config.MailConfig$$EnhancerBySpringCGLIB$$5845b50a.mailSender(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 25 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.mail.MessagingException
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	... 36 common frames omitted
+2022-01-02 19:19:24.164  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:19:24.168  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1293887 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:19:24.168  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:19:24.212  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:19:24.212  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:19:24.927  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:19:24.935  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:19:24.935  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:19:24.935  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:19:24.971  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:19:24.972  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 760 ms
+2022-01-02 19:19:25.198  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:19:25.334  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:19:25.350  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:19:25.362  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:19:25.372  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 1.471 seconds (JVM running for 2.291)
+2022-01-02 19:19:29.752  INFO pu2015 --- [nio-8523-exec-1] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-01-02 19:19:29.789  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:19:29.833  INFO pu2015 --- [nio-8523-exec-1] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 7
+2022-01-02 19:19:41.591  INFO pu2015 --- [nio-8523-exec-3] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:19:41.606  INFO pu2015 --- [nio-8523-exec-3] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 1
+2022-01-02 19:19:48.054  INFO pu2015 --- [nio-8523-exec-5] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:19:48.145  INFO pu2015 --- [nio-8523-exec-5] pu.porna.bo.impl.FilesMakerImpl          : Rowbounds for slice = 0, 10
+2022-01-02 19:22:32.223  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1293887 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:22:32.223  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:22:32.378  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:22:32.379  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:22:32.379  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:22:32.379  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:22:32.386  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:22:32.386  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 161 ms
+2022-01-02 19:22:32.444  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:22:32.467  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:22:32.475  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:22:32.476  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:22:32.481  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 0.281 seconds (JVM running for 189.401)
+2022-01-02 19:22:32.484  INFO pu2015 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-01-02 19:23:49.117  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1293887 (/home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/workspaces/sts4.12.1/pu.pornaboot)
+2022-01-02 19:23:49.117  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:23:49.240  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:23:49.241  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:23:49.241  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:23:49.241  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:23:49.245  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:23:49.245  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 125 ms
+2022-01-02 19:23:49.299  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:23:49.320  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:23:49.325  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:23:49.326  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:23:49.330  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 0.241 seconds (JVM running for 266.249)
+2022-01-02 19:23:49.331  INFO pu2015 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-01-02 19:24:09.478  INFO pu2015 --- [nio-8523-exec-1] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-01-02 19:24:09.483  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:24:09.579  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : files request klaar in 94ms
+2022-01-02 19:24:09.593  INFO pu2015 --- [nio-8523-exec-1] freemarker.beans                         : Detected multiple classes with the same name, "pu.porna.web.Paginator". Assuming it was a class-reloading. Clearing class introspection caches to release old data.
+2022-01-02 19:24:35.134  INFO pu2015 --- [nio-8523-exec-3] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:24:35.229  INFO pu2015 --- [nio-8523-exec-3] pu.porna.web.PornaController             : files request klaar in 94ms
+2022-01-02 19:24:39.315  INFO pu2015 --- [nio-8523-exec-5] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:24:39.404  INFO pu2015 --- [nio-8523-exec-5] pu.porna.web.PornaController             : files request klaar in 88ms
+2022-01-02 19:24:42.274  INFO pu2015 --- [nio-8523-exec-7] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:24:42.363  INFO pu2015 --- [nio-8523-exec-7] pu.porna.web.PornaController             : files request klaar in 88ms
+2022-01-02 19:40:10.290  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Starting Application using Java 17 on pu2015 with PID 1297523 (/home/purbanus/projecten/git/pu.pornaboot/pu.pornaboot/target/classes started by purbanus in /home/purbanus/projecten/git/pu.pornaboot/pu.pornaboot)
+2022-01-02 19:40:10.293  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : No active profile set, falling back to default profiles: default
+2022-01-02 19:40:10.297  INFO pu2015 --- [kground-preinit] ibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.2.0.Final
+2022-01-02 19:40:10.337  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-02 19:40:10.337  INFO pu2015 --- [  restartedMain] nv.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-02 19:40:11.113  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8523 (http)
+2022-01-02 19:40:11.121  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:40:11.122  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-01-02 19:40:11.122  INFO pu2015 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-02 19:40:11.162  INFO pu2015 --- [  restartedMain] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2022-01-02 19:40:11.162  INFO pu2015 --- [  restartedMain] ntext.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 825 ms
+2022-01-02 19:40:11.404  INFO pu2015 --- [  restartedMain] re.web.servlet.WelcomePageHandlerMapping : Adding welcome page template: index
+2022-01-02 19:40:11.541  INFO pu2015 --- [  restartedMain] s.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-01-02 19:40:11.557  INFO pu2015 --- [  restartedMain] g.apache.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8523"]
+2022-01-02 19:40:11.569  INFO pu2015 --- [  restartedMain] boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8523 (http) with context path ''
+2022-01-02 19:40:11.578  INFO pu2015 --- [  restartedMain] pu.porna.Application                     : Started Application in 1.601 seconds (JVM running for 2.568)
+2022-01-02 19:40:19.972  INFO pu2015 --- [nio-8523-exec-1] e.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-01-02 19:40:20.003  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:40:20.108  INFO pu2015 --- [nio-8523-exec-1] pu.porna.web.PornaController             : files request klaar in 102ms
+2022-01-02 19:40:44.668  INFO pu2015 --- [nio-8523-exec-3] pu.porna.web.PornaController             : Files request gestart
+2022-01-02 19:40:44.762  INFO pu2015 --- [nio-8523-exec-3] pu.porna.web.PornaController             : files request klaar in 93ms

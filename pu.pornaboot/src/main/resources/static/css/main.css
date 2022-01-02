@@ -1,0 +1,118 @@
+/*****
+body
+{
+  background-image: url("/porna/resources/images/computers-background.jpg");
+  background-repeat: no-repeat;
+}
+*************/
+body
+{
+/** Vroeger font-family: "Tahoma", "Arial", sans-serif;*/
+	font-family: "Trebuchet MS", verdana, arial, helvetica, sans-serif;
+	font-size: 11px; /* 11 voor de Trebuchet, 12 voor Tahoma */
+	color: #000;
+}
+h1
+{
+	font-size: 18px;
+}
+pre
+{
+	font-family: Consolas, "Lucida Console", "Courier New", "Andale Mono", Monaco, monospace; 
+	background-color: #edf3fe;
+	border: 1px solid #666666;
+}
+
+.paginator
+{
+    display: inline-block;
+}
+.paginator a
+{
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    float: left;
+    font-size: 120%;
+}
+.paginator a.active
+{
+    /*background-color: #4CAF50;*/
+    background-color: #0000c0;
+    color: white;
+}
+.paginator a:hover:not(.active) 
+{
+	background-color: #ddd;
+}
+/************* Waarom werkt die vertical-align nou GVD niet!
+.paginator a .prevnext 
+{
+	font-size: 170%;
+	vertical-align: 180%;
+}*****************/
+
+table
+{
+	border-spacing: 0;
+	border-collapse: collapse;
+	border: 1px solid #666666;
+}
+tr.even{background-color: white}
+tr.odd {background-color: #edf3fe}
+table thead tr th
+{
+	text-align: right;
+	color: white;
+	background-color: #0000c0;
+	font-weight: bold;
+	font-size: 11px;
+	padding: 3px 8px;
+	border-left: 1px solid white;
+}
+table.sortable thead tr .headerSortDown, table.sortable thead tr .headerSortUp {
+    background-color: #0090ff;	
+}
+table.sortable thead tr .header {
+    background-image: url(/porna/images/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.sortable thead tr .headerSortDown {
+    background-image: url(/porna/images/desc.gif);
+}
+table.sortable thead tr .headerSortUp {
+    background-image: url(/porna/images/asc.gif);
+}
+table.sortable {
+	text-align: left;
+}
+
+td
+{
+	text-align: right;
+	font-size: 11px;
+	padding: 3px 8px;
+	border-left: 1px solid #D9D9D9;
+}
+/***** werkt niet. weet iemnand waarom niet?
+table number { text-align: right; }
+table string { text-align: left; }
+table date   { text-align: center; }
+**********/
+th.number { text-align: right; }
+th.string { text-align: left; }
+th.date   { text-align: center; }
+th.label  { text-align: left; }
+td.number { text-align: right; }
+td.string { text-align: left; }
+td.date   { text-align: center; }
+
+.error
+{
+	color: red;
+	font-weight: bold;
+}
+

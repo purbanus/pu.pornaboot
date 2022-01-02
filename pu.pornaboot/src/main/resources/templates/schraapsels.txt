@@ -1,0 +1,2 @@
+<a href='<@spring.url "/porna/files.html?directory=${subDirectory.name}" />'>
+${subDirectory.name}

@@ -7,15 +7,15 @@ public class FilesDocument
 private final String directory;
 private final String parentDirectory;
 private final List<String> subDirectories;
-private final List<PornaFile> pornaFiles;
+private final List<FileEntry> fileEntries;
 private final int numberOfFiles;
-public FilesDocument( String aDirectory, String aParentDirectory, List<String> aSubDirectories, List<PornaFile> aPornaFiles, int aNumberOfFiles )
+public FilesDocument( String aDirectory, String aParentDirectory, List<String> aSubDirectories, List<FileEntry> aFileEntries, int aNumberOfFiles )
 {
 	super();
 	directory = aDirectory;
 	parentDirectory = aParentDirectory;
 	subDirectories = aSubDirectories;
-	pornaFiles = aPornaFiles;
+	fileEntries = aFileEntries;
 	numberOfFiles = aNumberOfFiles;
 }
 public String getDirectory()
@@ -30,9 +30,9 @@ public List<String> getSubDirectories()
 {
 	return subDirectories;
 }
-public List<PornaFile> getFiles()
+public List<FileEntry> getFiles()
 {
-	return pornaFiles;
+	return fileEntries;
 }
 public int getNumberOfFiles()
 {

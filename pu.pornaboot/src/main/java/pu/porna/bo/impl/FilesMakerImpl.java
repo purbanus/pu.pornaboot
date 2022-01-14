@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 
 import pu.porna.bo.FilesDocument;
 import pu.porna.bo.FilesMaker;
-import pu.porna.bo.PornaFile;
 import pu.porna.bo.RowBounds;
+import pu.porna.bo.FileEntry;
 
 @Component
 public class FilesMakerImpl implements FilesMaker
@@ -57,7 +57,7 @@ public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aR
 	Map<String, String> propertiesLookup = getProperties( aDirectory );
 	
 	List<String> subDirectories = new ArrayList<>();
-	List<PornaFile> files = new ArrayList<>();
+	List<FileEntry> files = new ArrayList<>();
 	File fileSystemDirectory = new File( getStartingDirectory() + ( aDirectory == null ? "" : File.separator + aDirectory ) );
 	String fromFile = aFromFile == null ? "" : aFromFile;
 	String parentDirectory = getParentDirectoryOf( fileSystemDirectory );
@@ -79,8 +79,8 @@ public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aR
 	    		{
 		    		LocalDateTime modifiedTime = Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.systemDefault()).toLocalDateTime();
 		    		String remark = propertiesLookup.get( file.getName() ) == null ? "" : propertiesLookup.get( file.getName() );
-		    		PornaFile pornaFile = new PornaFile( file.getName(), file.length(), modifiedTime, remark );
-		    		files.add( pornaFile );
+		    		FileEntry fileEntry = new FileEntry( file.getName(), file.length(), modifiedTime, remark );
+		    		files.add( fileEntry );
 	    		}
     		}
         }

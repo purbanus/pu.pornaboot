@@ -1,36 +1,42 @@
-package pu.porna.bo.impl;
+package pu.porna.dal;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
+import static java.nio.file.FileVisitResult.*;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pu.porna.bo.oud.DatabaseUpdater;
-import pu.porna.bo.oud.Directory;
-import pu.porna.bo.oud.File;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode( callSuper = false )
 public class FileWalker extends SimpleFileVisitor<Path>
 {
-private static final Logger LOG = LoggerFactory.getLogger( DatabaseUpdater.class );
+private static final Logger LOG = LoggerFactory.getLogger( FileWalker.class );
+
 private static String [] FOUTE_DIRECTORIES = { "@eaDir" };
-private static String [] FOUTE_FILES = { ".directory", "Thumbs.db" };
+private static String [] FOUTE_FILES ={ ".directory", "Thumbs.db" };
+
+private final Path startingDirectory;
 private final List<Directory> directories = new ArrayList<>();
+
 private final Map<String, Directory> directoryLookup = new HashMap<>();
-private final PathMatcher matcher;
 
 public static String expandHome( String aPath )
 {
@@ -45,33 +51,15 @@ public static String expandHome( String aPath )
 	}
 	return aPath;
 }
-public static List<Directory> walkDeFiles( String aStartingDirectory, String aSearchPattern ) throws IOException
-{
-	Path startingDir = Paths.get( expandHome( aStartingDirectory ) );
-	String pattern = expandHome( aSearchPattern );
-	
-	FileWalker walker = new FileWalker( pattern );
-	Files.walkFileTree( startingDir, walker );
-	return walker.getDirectories();
-}
-
-@SuppressWarnings( "resource" )
-public FileWalker( String aPattern )
+public FileWalker( String aStartingDirectory )
 {
 	super();
-    matcher = FileSystems.getDefault().getPathMatcher( "glob:" + expandHome( aPattern ) );
+	startingDirectory = Paths.get( expandHome( aStartingDirectory ) );
 }
-public List<Directory> getDirectories()
+public List<Directory> run() throws IOException
 {
-	return directories;
-}
-public Map<String, Directory> getDirectoryLookup()
-{
-	return directoryLookup;
-}
-public PathMatcher getMatcher()
-{
-	return matcher;
+	Files.walkFileTree( getStartingDirectory(), this );
+	return getDirectories();
 }
 @Override
 public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
@@ -86,8 +74,13 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 		{
 			throw new RuntimeException( "Directory bestaat niet: " + directoryString );
 		}
-       	File file = new File( -31415, path.getFileName().toString(), directory );
-       	directory.getFiles().add( file );
+		File file = File.builder()
+			.name( path.getFileName().toString() )
+			.directory( directory )
+			.size( aAttributes.size() )
+			.dateLastModified( LocalDate.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+			.build();
+		directory.getFiles().add( file );
 	}
 	// Je kunt hier altijd CONTINUE retourneren want je wilt doorgaan met de volgende file, ongeacht
 	// of je deze verwerkt hebt.
@@ -97,28 +90,32 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 @Override
 public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttributes )
 {
-	if ( ! isDirectoryOk( aDir ) )
+	if ( !isDirectoryOk( aDir ) )
 	{
 		return FileVisitResult.SKIP_SUBTREE;
 	}
-	//LOG.debug( "Directory gestart: %s%n", aDir );
+	// LOG.debug( "Directory gestart: %s%n", aDir );
 	LOG.debug( "Directory gestart: {}", aDir );
 	Path path = aDir.toAbsolutePath();
 	Directory parentDirectory = getDirectoryLookup().get( path.getParent().toString() );
-	Directory newDirectory = new Directory( 1, path.toString(), parentDirectory );
+	Directory newDirectory = Directory.builder()
+		.name( path.toString() )
+		.dateLastModified( LocalDate.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+		.parent( parentDirectory )
+		.build();
 	getDirectories().add( newDirectory );
 	getDirectoryLookup().put( path.toString(), newDirectory );
 	if ( parentDirectory != null )
 	{
-		parentDirectory.getSubDirectories().add(  newDirectory );
+		parentDirectory.getSubDirectories().add( newDirectory );
 	}
 	return CONTINUE;
 }
-//@Override
-//public FileVisitResult postVisitDirectory( Path dir, IOException exc )
-//{
-//	return CONTINUE;
-//}
+// @Override
+// public FileVisitResult postVisitDirectory( Path dir, IOException exc )
+// {
+// return CONTINUE;
+// }
 
 // If there is some error accessing the file, let the user know.
 // If you don't override this method and an error occurs, an IOException is thrown.
@@ -130,49 +127,49 @@ public FileVisitResult visitFileFailed( Path file, IOException exc )
 }
 public boolean isFileOk( Path aFile, BasicFileAttributes aAttributes )
 {
-	if ( ! aAttributes.isRegularFile() )
+	if ( !aAttributes.isRegularFile() )
 	{
 		return false;
 	}
-	if ( ! isFileOrDirectoryOk( aFile ) )
+	if ( !isFileOrDirectoryOk( aFile ) )
 	{
 		return false;
 	}
 	for ( String fouteFile : FOUTE_FILES )
 	{
-	    if ( aFile.endsWith( fouteFile ) )
-	    {
-	    	return false;
-	    }
+		if ( aFile.endsWith( fouteFile ) )
+		{
+			return false;
+		}
 	}
 	return true;
 }
 public boolean isDirectoryOk( Path aDirectory )
 {
-	if ( ! isFileOrDirectoryOk( aDirectory ) )
+	if ( !isFileOrDirectoryOk( aDirectory ) )
 	{
 		return false;
 	}
 	for ( String fouteDirectory : FOUTE_DIRECTORIES )
 	{
-	    if ( aDirectory.endsWith( fouteDirectory ) )
-	    {
-	    	return false;
-	    }
+		if ( aDirectory.endsWith( fouteDirectory ) )
+		{
+			return false;
+		}
 	}
-    return true;
+	return true;
 }
 private boolean isFileOrDirectoryOk( Path aPath )
 {
 	Path path = aPath.toAbsolutePath();
-    if ( path == null )
-    {
-    	return false;
-    }
-    if ( ! getMatcher().matches( path ) )
-    {
-    	return false;
-    }
-    return true;
+	if ( path == null )
+	{
+		return false;
+	}
+	return true;
+}
+public static LocalDate longToLocalDate( long aLastModified )
+{
+	return LocalDate.ofInstant( Instant.ofEpochMilli( aLastModified ), TimeZone.getDefault().toZoneId() );
 }
 }

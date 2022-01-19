@@ -7,12 +7,10 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 
 import pu.porna.dal.PornaFile.FileEntry;
 

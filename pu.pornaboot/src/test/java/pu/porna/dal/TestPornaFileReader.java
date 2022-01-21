@@ -12,7 +12,6 @@ import java.util.Properties;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 
 import pu.porna.dal.PornaFile.FileEntry;
 
@@ -54,7 +53,7 @@ public void testReadPornaFile() throws IOException
 	String directory = path.substring( 0, lastSlashPos );
 
 	PornaFile pornaFile = new PornaFileReader( directory ).readPornaFile();
-	assertEquals( directory, pornaFile.getDirectory() );
+//	assertEquals( directory, pornaFile.getDirectory() );
 	Map<String, FileEntry> fileEntries = pornaFile.getFileEntries();
 	checkProperties( fileEntries );
 	

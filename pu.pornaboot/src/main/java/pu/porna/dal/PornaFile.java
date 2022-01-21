@@ -30,10 +30,9 @@ public static String PORNA_FILE_NAME = ".porna";
 @AllArgsConstructor
 public static class FileEntry
 {
-//	private String fileName;
 	private MultiValuedMap<String, String> properties = new ArrayListValuedHashMap<>();
 }
-private String directory; // @@NOG NODIG?
+// private String directory; // @@NOG NODIG?
 private Map<String, FileEntry> fileEntries;
 
 public static PornaFile fromDirectory( String aDirectory ) throws IOException

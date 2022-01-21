@@ -30,12 +30,17 @@ public PornaFile readPornaFile() throws IOException
 	Properties properties = readPornaProperties( getDirectory() + File.separator + PornaFile.PORNA_FILE_NAME );
 	Map<String, FileEntry> fileEntryMap = extractFileEntriesFromProperties( properties );
 	return PornaFile.builder()
-		.directory( getDirectory() )
+		// .directory( getDirectory() )
 		.fileEntries( fileEntryMap )
 		.build();
 }
 Properties readPornaProperties( String aPath ) throws FileNotFoundException, IOException
 {
+	File file = new File( aPath );
+	if ( ! file.exists() )
+	{
+		return new Properties();
+	}
 	try ( Reader reader = new FileReader( aPath ); )
 	{
 		Properties pornaProperties = new Properties();

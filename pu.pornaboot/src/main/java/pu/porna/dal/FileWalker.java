@@ -11,6 +11,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +79,7 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 			.name( path.getFileName().toString() )
 			.directory( directory )
 			.size( aAttributes.size() )
-			.dateLastModified( LocalDate.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+			.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
 			.build();
 		directory.getFiles().add( file );
 	}
@@ -88,7 +89,7 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 }
 
 @Override
-public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttributes )
+public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttributes ) throws IOException
 {
 	if ( !isDirectoryOk( aDir ) )
 	{
@@ -97,11 +98,13 @@ public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttrib
 	// LOG.debug( "Directory gestart: %s%n", aDir );
 	LOG.debug( "Directory gestart: {}", aDir );
 	Path path = aDir.toAbsolutePath();
+	PornaFile pornafile = PornaFile.fromDirectory( path.toString() );
 	Directory parentDirectory = getDirectoryLookup().get( path.getParent().toString() );
 	Directory newDirectory = Directory.builder()
 		.name( path.toString() )
-		.dateLastModified( LocalDate.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+		.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
 		.parent( parentDirectory )
+		.pornaFile( pornafile )
 		.build();
 	getDirectories().add( newDirectory );
 	getDirectoryLookup().put( path.toString(), newDirectory );

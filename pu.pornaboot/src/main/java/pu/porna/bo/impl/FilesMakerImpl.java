@@ -1,7 +1,8 @@
 package pu.porna.bo.impl;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -19,7 +20,8 @@ import org.springframework.stereotype.Component;
 import pu.porna.bo.FilesDocument;
 import pu.porna.bo.FilesMaker;
 import pu.porna.bo.RowBounds;
-import pu.porna.bo.FileEntry;
+import pu.porna.dal.Directory;
+import pu.porna.dal.File;
 
 @Component
 public class FilesMakerImpl implements FilesMaker
@@ -33,7 +35,7 @@ private static final String [] FOUTE_FILES = { ".directory", "Thumbs.db" };
 
 public static String expandHome( String aPath )
 {
-	if ( aPath.startsWith( "~" + File.separator ) )
+	if ( aPath.startsWith( "~" + java.io.File.separator ) )
 	{
 		aPath = System.getProperty( "user.home" ) + aPath.substring( 1 );
 	}
@@ -53,22 +55,19 @@ public String getStartingDirectory()
 @Override
 public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aRowBounds ) throws IOException
 {
-	String directory = aDirectory == null ? "" : aDirectory;
-	Map<String, String> propertiesLookup = getProperties( aDirectory );
+	Directory directory = getDirectory( aDirectory );
 	
 	List<String> subDirectories = new ArrayList<>();
-	List<FileEntry> files = new ArrayList<>();
-	File fileSystemDirectory = new File( getStartingDirectory() + ( aDirectory == null ? "" : File.separator + aDirectory ) );
+	List<File> files = new ArrayList<>();
 	String fromFile = aFromFile == null ? "" : aFromFile;
-	String parentDirectory = getParentDirectoryOf( fileSystemDirectory );
-	File [] rawFiles = fileSystemDirectory.listFiles();
-    for ( File file : rawFiles )
+	java.io.File [] rawFiles = fileSystemDirectory.listFiles();
+    for ( java.io.File file : rawFiles )
     {
     	if ( file.isDirectory() )
         {
     		if ( isDirectoryOk( file ) )
         	{
-    			subDirectories.add( StringUtils.isEmpty( directory ) ? file.getName() : directory + File.separator + file.getName() );
+    			subDirectories.add( StringUtils.isEmpty( directory ) ? file.getName() : directory + java.io.File.separator + file.getName() );
         	}
         }
     	else
@@ -78,14 +77,16 @@ public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aR
 	    		if ( file.getName().compareToIgnoreCase( fromFile ) >= 0 )
 	    		{
 		    		LocalDateTime modifiedTime = Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-		    		String remark = propertiesLookup.get( file.getName() ) == null ? "" : propertiesLookup.get( file.getName() );
-		    		FileEntry fileEntry = new FileEntry( file.getName(), file.length(), modifiedTime, remark );
+		    		File fileEntry = File.builder()
+		    			.name( file.getName() )
+		    			.size( file.length() )
+		    			.dateTimeLastModified( modifiedTime )
+		    			.build();
 		    		files.add( fileEntry );
 	    		}
     		}
         }
     }
-    int numberOfFiles = files.size();
     subDirectories.sort( String.CASE_INSENSITIVE_ORDER );
     files.sort( (f1, f2) -> f1.getName().compareToIgnoreCase( f2.getName() ) );
 //    files.sort( Comparator.comparing( PornaFile::getName, String.CASE_INSENSITIVE_ORDER ) );
@@ -98,7 +99,25 @@ public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aR
     int topIndex = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), files.size() );
     LOG.debug( "Rowbounds for slice = " + aRowBounds.getOffset() + ", " + topIndex );
     files = files.subList( aRowBounds.getOffset(), topIndex );
-	return new FilesDocument( directory, parentDirectory, subDirectories, files, numberOfFiles );
+	return new FilesDocument( directory, subDirectories, files );
+}
+
+Directory getDirectory( String aDirectory )
+{
+	if ( aDirectory == null )
+	{
+		return null;
+	}
+	String directoryName = getStartingDirectory() + ( aDirectory == null ? "" : java.io.File.separator + aDirectory );
+	java.io.File fileSystemDirectory = new java.io.File( directoryName );
+	Path directoryPath = Paths.get( aDirectory );
+	LocalDateTime modifiedTime = Instant.ofEpochMilli( fileSystemDirectory.lastModified() ).atZone( ZoneId.systemDefault() ).toLocalDateTime();
+	return Directory.builder()
+		.name( directoryName )
+		.dateTimeLastModified( modifiedTime )
+		.parent( getParentDirectoryOf( directoryPath ) )
+		.pornaFile( null )
+		.build();
 }
 
 /**
@@ -107,23 +126,31 @@ public FilesDocument getFiles( String aDirectory, String aFromFile, RowBounds aR
  * @return the parentdirectory of aDirectory, relative to our startingDirectory
  * @throws IOException 
  */
-String getParentDirectoryOf( File aDirectory ) throws IOException
+Directory getParentDirectoryOf( Path aDirectoryPath )
 {
-	String directory = aDirectory.getCanonicalPath();
-	if ( directory.equals( getStartingDirectory() ) )
+	Path directoryPath = aDirectoryPath.getParent();
+	String directoryName = directoryPath.toString();
+	if ( directoryName.equals( getStartingDirectory() ) )
 	{
 		return null;
 	}
-	String parentDirectory = new File( aDirectory.getParent() ).getCanonicalPath();
-	if ( parentDirectory.startsWith( getStartingDirectory() ) )
-	{
-		parentDirectory = parentDirectory.substring( getStartingDirectory().length() );
-		if ( parentDirectory.startsWith( File.separator ) )
-		{
-			parentDirectory = parentDirectory.substring( 1 );
-		}
-	}
-	return parentDirectory;
+//	if ( parentDirectory.startsWith( getStartingDirectory() ) )
+//	{
+//		parentDirectory = parentDirectory.substring( getStartingDirectory().length() );
+//		if ( parentDirectory.startsWith( java.io.File.separator ) )
+//		{
+//			parentDirectory = parentDirectory.substring( 1 );
+//		}
+//	}
+//	return parentDirectory;
+	java.io.File fileSystemDirectory = new java.io.File( directoryName );
+	LocalDateTime modifiedTime = Instant.ofEpochMilli( fileSystemDirectory.lastModified() ).atZone( ZoneId.systemDefault() ).toLocalDateTime();
+	return Directory.builder()
+		.name( directoryName )
+		.dateTimeLastModified( modifiedTime )
+		.parent( null ) // Dit gaat maar over 1 directory
+		.pornaFile( null )
+		.build();
 }
 
 @SuppressWarnings( "static-method" )
@@ -133,7 +160,7 @@ private Map<String, String> getProperties( String aDirectory )
 	return new HashMap<>();
 }
 
-public boolean isFileOk( File aFile )
+public boolean isFileOk( java.io.File aFile )
 {
 	if ( ! isFileOrDirectoryOk( aFile ) )
 	{
@@ -152,7 +179,7 @@ public boolean isFileOk( File aFile )
 	}
 	return true;
 }
-public boolean isDirectoryOk( File aDirectory )
+public boolean isDirectoryOk( java.io.File aDirectory )
 {
 	if ( ! isFileOrDirectoryOk( aDirectory ) )
 	{
@@ -168,7 +195,7 @@ public boolean isDirectoryOk( File aDirectory )
     return true;
 }
 @SuppressWarnings( "static-method" )
-private boolean isFileOrDirectoryOk( File aFile )
+private boolean isFileOrDirectoryOk( java.io.File aFile )
 {
 	return aFile.getAbsolutePath() != null;
 }

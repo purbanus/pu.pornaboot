@@ -1,6 +1,6 @@
 package pu.porna.web;
 
-public class FilesRequestParameters
+public class DirectoryRequestParameters
 {
 private Integer pageId;
 private Integer rijen;

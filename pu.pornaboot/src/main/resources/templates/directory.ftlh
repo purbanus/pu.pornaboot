@@ -24,9 +24,9 @@
 				<th class="header string">Subdirectory</th>
 			</tr>
 		</thead>
-		<#list filesDocument.subDirectories as subDirectory>
+		<#list directory.subDirectories as subDirectory>
 			<tr class=${subDirectory?itemParity}>
-				<td class="string"><a href='<@spring.url "/files.html?directory=${subDirectory}" />'>${subDirectory}</a></td>
+				<td class="string"><a href='<@spring.url "/directory.html?directory=${subDirectory.name}" />'>${subDirectory.name}</a></td>
 			</tr>
 		</#list>
 	</table>
@@ -40,12 +40,12 @@
 				<th class="header string">Remark</th>
 			</tr>
 		</thead>
-		<#list filesDocument.files as file>
+		<#list directory.files as file>
 			<tr class=${file?itemParity}>
 				<td class="string"><a href='<@spring.url "/file.html?name=${file.name}" />'>${file.name}</a></td>
 				<td class="number">${file.size}</td>
-				<td class="string">${file.timeModified}</td>
-				<td class="string">${file.remark}</td>
+				<td class="string">${file.dateTimeLastModified}</td>
+				<td class="string">Hier komen de ptoperties</td>
 			</tr>
 		</#list>
 	</table>

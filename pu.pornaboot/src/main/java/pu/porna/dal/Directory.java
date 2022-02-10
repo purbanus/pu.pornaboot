@@ -6,18 +6,27 @@ import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Builder
 //@AllArgsConstructor
+
 public class Directory implements FileSystemObject
 {
 private final String name;
 private final LocalDateTime dateTimeLastModified;
 
 private final Directory parent;
-private final List<Directory> subDirectories = new ArrayList<>();
-private final List<File> files = new ArrayList<>();
+
+@Builder.Default
+@ToString.Exclude
+private List<Directory> subDirectories = new ArrayList<>();
+
+@Builder.Default
+@ToString.Exclude
+private List<File> files = new ArrayList<>();
+
 private final PornaFile pornaFile;
 
 @Override

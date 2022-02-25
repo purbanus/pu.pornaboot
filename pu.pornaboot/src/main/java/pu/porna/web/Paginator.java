@@ -46,7 +46,7 @@ public class Page
 }
 
 public static final int PAGES_IN_PAGINATOR = 20;
-public static final int RIJEN_PER_PAGINA = 10; 
+public static final int RIJEN_PER_PAGINA = 30; 
 private final int aantalRijen;
 private final int activePage;
 private List<Page> pages;

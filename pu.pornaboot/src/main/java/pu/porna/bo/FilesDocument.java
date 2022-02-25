@@ -2,7 +2,6 @@ package pu.porna.bo;
 
 import java.util.List;
 
-import pu.porna.dal.Directory;
 import pu.porna.dal.File;
 
 import lombok.AllArgsConstructor;

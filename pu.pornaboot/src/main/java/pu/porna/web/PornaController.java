@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import pu.porna.bo.FilesDocument;
 import pu.porna.dal.Directory;
 import pu.porna.service.PornaService;
 
@@ -58,7 +55,7 @@ public String directory( @ModelAttribute DirectoryRequestParameters aDirectoryRe
 	if ( rijen == null || pageId == null )
 	{
 		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, Paginator.getStartingRowBounds() );
-		paginator = new Paginator( directory.getFiles().size(), 1 );
+		paginator = new Paginator( directory.getTotalNumberOfFiles(), 1 );
 	}
 	else
 	{

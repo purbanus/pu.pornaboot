@@ -54,12 +54,13 @@ void applyPropertiesAndSort( List<Directory> aDirectories )
 {
 	for ( Directory directory : aDirectories )
 	{
+		directory.setTotalNumberOfFiles( directory.getFiles().size() );
 		for ( File file : directory.getFiles() )
 		{
 			applyProperties( file, directory );
 		}
-		directory.getFiles().sort( Comparator.comparing( File::getName ) );
-		directory.getSubDirectories().sort( Comparator.comparing( Directory::getName ) );
+		directory.getFiles().sort( ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
+		directory.getSubDirectories().sort( ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
 		applyPropertiesAndSort( directory.getSubDirectories() );
 	}
 }
@@ -99,6 +100,10 @@ public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileNa
 	{
 		aDirectoryName = FileWalker.expandHome( START_DIRECTORY );
 	}
+	while ( aDirectoryName.endsWith( "/" ) )
+	{
+		aDirectoryName = aDirectoryName.substring( 0, aDirectoryName.length() - 1 );
+	}
 	Directory directory = getDataHolder().getDirectoriesMap().get( aDirectoryName );
 	
 	directory = retainFilesStartingWith( aFromFileName, directory );
@@ -117,7 +122,7 @@ Directory retainFilesStartingWith( String aFromFileName, Directory aDirectory )
 	File fromFile = File.builder()
 		.name( aFromFileName )
 		.build();
-	int index = Collections.binarySearch( directory.getFiles(), fromFile, Comparator.comparing( File::getName ) );
+	int index = Collections.binarySearch( directory.getFiles(), fromFile, ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
 	if ( index < 0 )
 	{
 		index = -index - 1;
@@ -127,11 +132,11 @@ Directory retainFilesStartingWith( String aFromFileName, Directory aDirectory )
 }
 Directory applyRowBounds( Directory aDirectory, RowBounds aRowBounds )
 {
-	// @@NOG Check RowBounds offset >= 0 <= size etc.
 	Directory directory = cloneDirectory( aDirectory );
-	int topIndex = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), directory.getFiles().size() );
-	LOG.debug( "Rowbounds for slice = " + aRowBounds.getOffset() + ", " + topIndex );
-	directory.setFiles( directory.getFiles().subList( aRowBounds.getOffset(), topIndex ) );
+	int offset = Math.min( aRowBounds.getOffset(), directory.getFiles().size() );
+	int limit = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), directory.getFiles().size() );
+	LOG.debug( "Rowbounds for slice = " + offset + ", " + limit );
+	directory.setFiles( directory.getFiles().subList( offset, limit ) );
 	return directory;
 }
 
@@ -140,6 +145,7 @@ Directory cloneDirectory( Directory directory )
 	return Directory.builder()
 		.name( directory.getName() )
 		.dateTimeLastModified( directory.getDateTimeLastModified() )
+		.totalNumberOfFiles( directory.getTotalNumberOfFiles() )
 		.parent( directory.getParent() )
 		.pornaFile( directory.getPornaFile() )
 		.files( directory.getFiles() )

@@ -16,6 +16,7 @@ public class Directory implements FileSystemObject
 {
 private final String name;
 private final LocalDateTime dateTimeLastModified;
+private int totalNumberOfFiles;
 
 private final Directory parent;
 

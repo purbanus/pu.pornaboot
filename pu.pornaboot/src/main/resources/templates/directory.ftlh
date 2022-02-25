@@ -63,7 +63,6 @@
 			</#list>
 		</table>
 	</#if>
-
 	<br />
 	
 	<#include "paginator.ftlh" />

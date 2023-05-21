@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DirectoryRequestParameters
+public class DirectoryRequest
 {
 private Integer pageId;
 private Integer rijen;

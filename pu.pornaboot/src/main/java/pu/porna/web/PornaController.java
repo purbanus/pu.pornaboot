@@ -12,23 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
 import pu.porna.service.PornaService;
+
+import lombok.Data;
 
 /**
  * Handles requests for porna pages.
  */
 @Controller
+@Data
 // Je kunt hier ook een @RequestMappging("fileusage") opgeven, dan krijgen de requestmappings bij de methodes dat als voorvoegsel
 public class PornaController
 {
 private static final Logger LOG = LoggerFactory.getLogger(PornaController.class);
-@Autowired private PornaService pornaService;	
 
-public PornaService getPornaService()
-{
-	return pornaService;
-}
+@Autowired private PornaService pornaService;
+@Autowired private PornaConfig pornaConfig;
 
 @GetMapping(value = { "/pagina.html", "/pagina" } )
 public String pagina( Model aodel )
@@ -38,7 +39,7 @@ public String pagina( Model aodel )
 	return "pagina";
 }
 @GetMapping(value = { "/directory.html", "/directory" })
-public String directory( @ModelAttribute DirectoryRequestParameters aDirectoryRequestParameters, Model aModel ) throws IOException 
+public String directory( @ModelAttribute DirectoryRequest aDirectoryRequestParameters, Model aModel ) throws IOException 
 {
 	LOG.info( "Files request gestart" );
 	StopWatch timer = new StopWatch();
@@ -48,6 +49,10 @@ public String directory( @ModelAttribute DirectoryRequestParameters aDirectoryRe
 	Integer rijen = aDirectoryRequestParameters.getRijen();
 	Integer pageId = aDirectoryRequestParameters.getPageId();
 	String directoryString = aDirectoryRequestParameters.getDirectory();
+	if ( directoryString == null )
+	{
+		directoryString = getPornaConfig().getStartingDirectory();
+	}
 	String zoekenVanaf = aDirectoryRequestParameters.getZoekenVanaf() == null ? "" : aDirectoryRequestParameters.getZoekenVanaf();
 
 	Directory directory;

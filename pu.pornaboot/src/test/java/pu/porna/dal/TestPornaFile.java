@@ -10,13 +10,16 @@ import java.util.Map;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 
 @SpringBootTest
 public class TestPornaFile
 {
+@Autowired PornaConfig pornaConfig;
 
 @Test
 public void testFromDirectory() throws IOException
@@ -26,7 +29,7 @@ public void testFromDirectory() throws IOException
 	int lastSlashPos = path.lastIndexOf( "/" );
 	String directory = path.substring( 0, lastSlashPos );
 
-	PornaFile pornaFile = PornaFile.fromDirectory( directory );
+	PornaFile pornaFile = PornaFile.fromDirectory( directory, pornaConfig );
 //	assertEquals( directory, pornaFile.getDirectory() );
 	Map<String, FileEntry> fileEntries = pornaFile.getFileEntries();
 	checkProperties( fileEntries );

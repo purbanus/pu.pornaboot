@@ -13,21 +13,21 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 
 import freemarker.template.utility.StringUtil;
 import lombok.Data;
+
 
 @Data
 public class PornaFileReader
 {
 private static final Logger LOG = LoggerFactory.getLogger(PornaFileReader.class);
 
-private final String directory;
-
-public PornaFile readPornaFile() throws IOException
+public PornaFile readPornaFile( String aDirectory, PornaConfig aPornaConfig  ) throws IOException
 {
-	Properties properties = readPornaProperties( getDirectory() + File.separator + PornaFile.PORNA_FILE_NAME );
+	Properties properties = readPornaProperties( aDirectory + File.separator + aPornaConfig.getPornaFileName() );
 	Map<String, FileEntry> fileEntryMap = extractFileEntriesFromProperties( properties );
 	return PornaFile.builder()
 		// .directory( getDirectory() )

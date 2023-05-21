@@ -8,6 +8,14 @@
 <head>
 	<title>Files</title>
 	<link rel=StyleSheet href="<@spring.url '/css/main.css' />" type="text/css">
+	<script type="text/javascript" src="#springUrl( '/js/jquery-1.11.1.js' )"></script> 
+	<script type="text/javascript" src="#springUrl( '/js/jquery.tablesorter-2.0.js' )"></script> 
+	<script type="text/javascript">
+$(document).ready(function() 
+{ 
+    $("#detabel").tablesorter({widgets: ['zebra']}); 
+});
+	</script> 
 </head>
 <body>
 	<h1>Directory ${directory.name}</h1>
@@ -44,7 +52,7 @@
 	</#if>
 
 	<#if directory.files?size gt 0>
-		<table id="detabel" > <!-- class="sortable" -->
+		<table id="detabel" class="sortable">
 			<thead>
 				<tr>
 					<th class="header string">File</th> <!-- Client ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
@@ -57,8 +65,9 @@
 				<tr class=${file?itemParity}>
 					<td class="string"><a href='<@spring.url "/file.html?name=${file.name}" />'>${file.name}</a></td>
 					<td class="number">${file.size}</td>
-					<td class="string">${file.dateTimeLastModified.format( "dd-MM-yyyy HH:mm:ss" ) }</td>
-					<td class="string">Hier komen de ptoperties</td>
+					<td class="string">${file.dateTimeLastModified.format( 'dd-MM-yyyy HH:mm:ss' ) }</td>
+					<#-- <td class="string">${file.dateTimeLastModified }</td> -->
+					<td class="string">Hier komen de properties</td>
 				</tr>
 			</#list>
 		</table>

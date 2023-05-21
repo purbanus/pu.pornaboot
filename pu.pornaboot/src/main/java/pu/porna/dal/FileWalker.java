@@ -22,6 +22,8 @@ import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pu.porna.config.PornaConfig;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,6 +40,7 @@ private final Path startingDirectory;
 private final List<Directory> directories = new ArrayList<>();
 
 private final Map<String, Directory> directoryLookup = new HashMap<>();
+private final PornaConfig pornaConfig;
 
 public static String expandHome( String aPath )
 {
@@ -52,10 +55,11 @@ public static String expandHome( String aPath )
 	}
 	return aPath;
 }
-public FileWalker( String aStartingDirectory )
+public FileWalker( String aStartingDirectory, PornaConfig aPornaConfig )
 {
 	super();
 	startingDirectory = Paths.get( expandHome( aStartingDirectory ) );
+	pornaConfig = aPornaConfig;
 }
 public List<Directory> run() throws IOException
 {
@@ -96,9 +100,9 @@ public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttrib
 		return FileVisitResult.SKIP_SUBTREE;
 	}
 	// LOG.debug( "Directory gestart: %s%n", aDir );
-	LOG.debug( "Directory gestart: {}", aDir );
+	//LOG.debug( "Directory gestart: {}", aDir );
 	Path path = aDir.toAbsolutePath();
-	PornaFile pornafile = PornaFile.fromDirectory( path.toString() );
+	PornaFile pornafile = PornaFile.fromDirectory( path.toString(), getPornaConfig() );
 	Directory parentDirectory = getDirectoryLookup().get( path.getParent().toString() );
 	Directory newDirectory = Directory.builder()
 		.name( path.toString() )

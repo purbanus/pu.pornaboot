@@ -11,13 +11,16 @@ import java.util.Properties;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 
 @SpringBootTest
 public class TestPornaFileReader
 {
+@Autowired PornaConfig pornaConfig;
 
 @Test
 public void testExtractFileEntriesFromProperties()
@@ -28,7 +31,7 @@ public void testExtractFileEntriesFromProperties()
 	properties.put( "FileB.type", "paartjes" );
 	properties.put( "FileB.hoegoed", "goed" );
 	
-	Map<String, FileEntry> fileEntries = new PornaFileReader( "miepmiep" ).extractFileEntriesFromProperties( properties );
+	Map<String, FileEntry> fileEntries = new PornaFileReader().extractFileEntriesFromProperties( properties );
 	checkProperties( fileEntries );
 }
 @Test
@@ -40,7 +43,7 @@ public void testExtractFileEntriesFromPropertiesWithInvalidProperty()
 	properties.put( "FileBtype", "paartjes" );
 	properties.put( "FileB.hoegoed", "goed" );
 	
-	Map<String, FileEntry> fileEntries = new PornaFileReader( "pipo" ).extractFileEntriesFromProperties( properties );
+	Map<String, FileEntry> fileEntries = new PornaFileReader().extractFileEntriesFromProperties( properties );
 	checkProperties( fileEntries );
 }
 
@@ -52,7 +55,7 @@ public void testReadPornaFile() throws IOException
 	int lastSlashPos = path.lastIndexOf( "/" );
 	String directory = path.substring( 0, lastSlashPos );
 
-	PornaFile pornaFile = new PornaFileReader( directory ).readPornaFile();
+	PornaFile pornaFile = new PornaFileReader().readPornaFile( directory, pornaConfig );
 //	assertEquals( directory, pornaFile.getDirectory() );
 	Map<String, FileEntry> fileEntries = pornaFile.getFileEntries();
 	checkProperties( fileEntries );

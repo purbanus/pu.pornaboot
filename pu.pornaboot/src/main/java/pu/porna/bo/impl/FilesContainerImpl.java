@@ -2,7 +2,6 @@ package pu.porna.bo.impl;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +9,12 @@ import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pu.porna.bo.FilesContainer;
 import pu.porna.bo.RowBounds;
+import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
 import pu.porna.dal.File;
 import pu.porna.dal.FileWalker;
@@ -24,10 +25,11 @@ import lombok.Builder;
 import lombok.Data;
 
 @Component
+//@Data @@NOG Lombok klaagt over een IOException, maar ik zie niet waar dat op slaat
 public class FilesContainerImpl implements FilesContainer
 {
 private static final Logger LOG = LoggerFactory.getLogger( FilesContainer.class );
-public static String START_DIRECTORY = "~/Videos/vrouwen";
+@Autowired private PornaConfig pornaConfig; 
 
 @Data
 @Builder
@@ -39,10 +41,15 @@ private final Map<String, Directory> directoriesMap;
 }
 private DataHolder dataholder;
 
+public PornaConfig getPornaConfig()
+{
+	return pornaConfig;
+}
+
 @Override
 public void refresh() throws IOException
 {
-	FileWalker fileWalker = new FileWalker( START_DIRECTORY );
+	FileWalker fileWalker = new FileWalker( getPornaConfig().getStartingDirectory(), getPornaConfig() );
 	List<Directory> newDirectories = fileWalker.run();
 	applyPropertiesAndSort( newDirectories );
 	Map<String, Directory> newDirectoriesMap = createDirectoriesMap( newDirectories );
@@ -98,7 +105,7 @@ public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileNa
 {
 	if ( StringUtils.isEmpty( aDirectoryName ) )
 	{
-		aDirectoryName = FileWalker.expandHome( START_DIRECTORY );
+		aDirectoryName = FileWalker.expandHome( getPornaConfig().getStartingDirectory() );
 	}
 	while ( aDirectoryName.endsWith( "/" ) )
 	{

@@ -8,20 +8,26 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import nl.mediacenter.services.MatrixFormatter;
-import nl.mediacenter.services.StringHelper;
+import pu.porna.config.PornaConfig;
+import pu.porna.util.MatrixFormatter;
+import pu.porna.util.StringHelper;
 
 @SpringBootTest
+//@SpringJUnitConfig
+//@SpringJUnitWebConfig
 public class TestFileWalkerOverVrouwen
 {
-public static final String OLD_ALL_DIRECTORY = "~/Videos/vrouwen";
+public static final String OLD_ALL_DIRECTORY = "/media/purbanus/5TB Seagate/Videos/vrouwen";
+
+@Autowired PornaConfig pornaConfig;
 
 @Test
 public void testFromDirectory() throws IOException
 {
-	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY);
+	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY, pornaConfig );
 	StopWatch timer = new StopWatch();
 	timer.start();
  	List<Directory> directories = walker.run();
@@ -32,7 +38,7 @@ public void testFromDirectory() throws IOException
 //@Test
 public void testAndPrint() throws IOException
 {
-	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY);
+	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY, pornaConfig );
 	StopWatch timer = new StopWatch();
 	timer.start();
  	List<Directory> directories = walker.run();

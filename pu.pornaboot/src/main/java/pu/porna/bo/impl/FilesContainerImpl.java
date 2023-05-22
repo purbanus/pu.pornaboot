@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +52,14 @@ public PornaConfig getPornaConfig()
 @Override
 public void refresh() throws IOException
 {
+	StopWatch timer = new StopWatch();
 	FileWalker fileWalker = new FileWalker( getPornaConfig().getStartingDirectory(), getPornaConfig() );
 	List<Directory> newDirectories = fileWalker.run();
 	applyPropertiesAndSort( newDirectories );
 	Map<String, Directory> newDirectoriesMap = createDirectoriesMap( newDirectories );
 
 	dataholder = new DataHolder( newDirectories, newDirectoriesMap ); 
+	log.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 }
 
 void applyPropertiesAndSort( List<Directory> aDirectories )
@@ -156,6 +160,7 @@ Directory cloneDirectory( Directory directory )
 		.totalNumberOfFiles( directory.getTotalNumberOfFiles() )
 		.parent( directory.getParent() )
 		.pornaFile( directory.getPornaFile() )
+		.pornaConfig( pornaConfig )
 		.files( directory.getFiles() )
 		.subDirectories( directory.getSubDirectories() )
 		.build();

@@ -13,4 +13,6 @@ private Integer pageId;
 private Integer rijen;
 private String zoekenVanaf;
 private String directory;
+private String orderBy;
+private String vorigeOrderBy;
 }

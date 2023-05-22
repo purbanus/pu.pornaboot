@@ -21,6 +21,7 @@ import pu.porna.dal.Directory;
 import pu.porna.dal.File;
 import pu.porna.dal.FileWalker;
 import pu.porna.dal.PornaFile.FileEntry;
+import pu.porna.web.OrderBy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -106,7 +107,7 @@ DataHolder getDataHolder() throws IOException
 }
 
 @Override
-public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileName, RowBounds aRowBounds ) throws IOException
+public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileName, RowBounds aRowBounds, OrderBy aOrderBy ) throws IOException
 {
 	if ( StringUtils.isEmpty( aDirectoryName ) )
 	{
@@ -117,8 +118,9 @@ public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileNa
 		aDirectoryName = aDirectoryName.substring( 0, aDirectoryName.length() - 1 );
 	}
 	Directory directory = getDataHolder().getDirectoriesMap().get( aDirectoryName );
-	
+	directory = cloneDirectory( directory );
 	directory = retainFilesStartingWith( aFromFileName, directory );
+	directory.getFiles().sort( aOrderBy.getComparator() );
 	directory = applyRowBounds( directory, aRowBounds );
 	return directory;
 }
@@ -130,26 +132,25 @@ Directory retainFilesStartingWith( String aFromFileName, Directory aDirectory )
 	{
 		return aDirectory;
 	}
-	Directory directory = cloneDirectory( aDirectory );
 	File fromFile = File.builder()
 		.name( aFromFileName )
 		.build();
-	int index = Collections.binarySearch( directory.getFiles(), fromFile, ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
+	int index = Collections.binarySearch( aDirectory.getFiles(), fromFile, ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
 	if ( index < 0 )
 	{
 		index = -index - 1;
 	}
-	directory.setFiles( directory.getFiles().subList( index, directory.getFiles().size() ) );
-	return directory;
+	aDirectory.setFiles( aDirectory.getFiles().subList( index, aDirectory.getFiles().size() ) );
+	return aDirectory;
 }
+
 Directory applyRowBounds( Directory aDirectory, RowBounds aRowBounds )
 {
-	Directory directory = cloneDirectory( aDirectory );
-	int offset = Math.min( aRowBounds.getOffset(), directory.getFiles().size() );
-	int limit = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), directory.getFiles().size() );
+	int offset = Math.min( aRowBounds.getOffset(), aDirectory.getFiles().size() );
+	int limit = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), aDirectory.getFiles().size() );
 	log.debug( "Rowbounds for slice = " + offset + ", " + limit );
-	directory.setFiles( directory.getFiles().subList( offset, limit ) );
-	return directory;
+	aDirectory.setFiles( aDirectory.getFiles().subList( offset, limit ) );
+	return aDirectory;
 }
 
 Directory cloneDirectory( Directory directory )

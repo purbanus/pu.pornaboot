@@ -39,16 +39,16 @@ public String pagina( Model aodel )
 	return "pagina";
 }
 @GetMapping(value = { "/directory.html", "/directory" })
-public String directory( @ModelAttribute DirectoryRequest aDirectoryRequestParameters, Model aModel ) throws IOException 
+public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Model aModel ) throws IOException 
 {
 	LOG.info( "Directory request gestart" );
 	StopWatch timer = new StopWatch();
 	timer.start();
 	
 	// @@NOG rijen elimineren uit request parms
-	Integer rijen = aDirectoryRequestParameters.getRijen();
-	Integer pageId = aDirectoryRequestParameters.getPageId();
-	String directoryString = aDirectoryRequestParameters.getDirectory();
+	Integer rijen = aDirectoryRequest.getRijen();
+	Integer pageId = aDirectoryRequest.getPageId();
+	String directoryString = aDirectoryRequest.getDirectory();
 	if ( directoryString == null )
 	{
 		directoryString = getPornaConfig().getStartingDirectory();
@@ -57,23 +57,28 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequestParam
 	{
 		directoryString = getPornaConfig().getStartingPrefix() + directoryString;
 	}
-	String zoekenVanaf = aDirectoryRequestParameters.getZoekenVanaf() == null ? "" : aDirectoryRequestParameters.getZoekenVanaf();
+	String zoekenVanaf = aDirectoryRequest.getZoekenVanaf() == null ? "" : aDirectoryRequest.getZoekenVanaf();
+	String orderByString = aDirectoryRequest.getOrderBy();
+	LOG.info( "OrderBy = " + orderByString );
+	OrderBy orderBy = orderByString == null ? OrderBy.OP_NAAM : OrderBy.fromString( orderByString );
 
 	Directory directory;
 	Paginator paginator;
 	if ( rijen == null || pageId == null )
 	{
-		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, Paginator.getStartingRowBounds() );
+		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, Paginator.getStartingRowBounds(), orderBy );
 		paginator = new Paginator( directory.getTotalNumberOfFiles(), 1 );
 	}
 	else
 	{
 		paginator = new Paginator( rijen, pageId );
-		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, paginator.getHuidigeRowBounds() );
+		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, paginator.getHuidigeRowBounds(), orderBy );
 	}
 	aModel.addAttribute( "paginator", paginator );
 	aModel.addAttribute( "zoekenVanaf", zoekenVanaf );
 	aModel.addAttribute( "directory", directory );
+	aModel.addAttribute( "orderBy", orderBy );
+	aModel.addAttribute( "vorigeOrderBy", orderBy );
 	LOG.info( "directory request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "directory";
 }

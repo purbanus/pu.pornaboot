@@ -20,7 +20,7 @@ private final String name;
 private final LocalDateTime dateTimeLastModified;
 private final PornaConfig pornaConfig;
 
-// @@NOG Elimineren, dit is toch gewoon files.size()?
+// @@NOG Elimineren, dit is toch gewoon files.size()? Of is het subtieler @@CHECK
 private int totalNumberOfFiles;
 
 private final Directory parent;

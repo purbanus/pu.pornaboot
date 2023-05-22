@@ -11,6 +11,7 @@ import pu.porna.bo.FilesContainer;
 import pu.porna.bo.RowBounds;
 import pu.porna.dal.Directory;
 import pu.porna.service.PornaService;
+import pu.porna.web.OrderBy;
 import pu.porna.web.PornaController;
 
 import lombok.Data;
@@ -25,9 +26,9 @@ private static final Logger LOG = LoggerFactory.getLogger(PornaController.class)
 @Autowired private FilesContainer filesContainer;
 
 @Override
-public Directory getFilesPerDirectory( String aDirectory, String aFromFile, RowBounds aRowBounds ) throws IOException
+public Directory getFilesPerDirectory( String aDirectory, String aFromFile, RowBounds aRowBounds, OrderBy aOrderBy ) throws IOException
 {
-	return getFilesContainer().getFilesPerDirectory( aDirectory, aFromFile, aRowBounds );
+	return getFilesContainer().getFilesPerDirectory( aDirectory, aFromFile, aRowBounds, aOrderBy );
 }
 
 }

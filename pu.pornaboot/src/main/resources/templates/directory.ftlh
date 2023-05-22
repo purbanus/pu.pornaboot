@@ -8,22 +8,24 @@
 <head>
 	<title>Files</title>
 	<link rel=StyleSheet href="<@spring.url '/css/main.css' />" type="text/css">
-	<script type="text/javascript" src="<@spring.url '/js/jquery-1.11.1.js' />"></script> 
-	<script type="text/javascript" src="<@spring.url '/js/jquery.tablesorter-2.0.js' />"></script> 
-	<script type="text/javascript">
-$(document).ready(function() 
-{ 
-    $("#detabel").tablesorter({widgets: ['zebra']}); 
-});
-	</script> 
 </head>
 <body>
 	<h1>Directory ${directory.displayName}</h1>
 	
 	<form action='<@spring.url "/directory.html" />'>
+		<input id="directory" type="hidden" name="directory" value="${directory.displayName}" />
+		<input id="vorigeOrderBy" type="hidden" name="vorigeOrderBy" value="${orderBy}" />
+		
 		<label for="zoekenVanaf">Zoeken vanaf</label>
 		<input id="zoekenVanaf" type="text" name="zoekenVanaf">${zoekenVanaf}</input>
-		<input id="directory" type="hidden" name="directory" value="${directory.name}" />
+		
+		<input type="radio" id="opNaam" name="orderBy" value="opNaam" <#if orderBy == "opNaam">checked</#if> />
+		<label for="opNaam">Op filenaam</label>
+		<input type="radio" id="opSize" name="orderBy" value="opSize" <#if orderBy == "opSize">checked</#if> />
+		<label for="opSize">Op file grootte</label>
+		<input type="radio" id="opDatum" name="orderBy" value="opDatum" <#if orderBy == "opDatum">checked</#if> />
+		<label for="opDatum">Op datum</label>
+
 		<button type="submit" name="submit">Submit</button>
 	</form>
 	
@@ -52,7 +54,7 @@ $(document).ready(function()
 	</#if>
 
 	<#if directory.files?size gt 0>
-		<table id="detabel" class="sortable">
+		<table id="detabel"> <#-- class="sortable"> -->
 			<thead>
 				<tr>
 					<th class="header string">File</th> <!-- Client ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->

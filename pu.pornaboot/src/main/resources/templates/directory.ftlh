@@ -14,7 +14,6 @@
 	
 	<form action='<@spring.url "/directory.html" />'>
 		<input id="directory" type="hidden" name="directory" value="${directory.displayName}" />
-		<input id="vorigeOrderBy" type="hidden" name="vorigeOrderBy" value="${orderBy}" />
 		
 		<label for="zoekenVanaf">Zoeken vanaf</label>
 		<input id="zoekenVanaf" type="text" name="zoekenVanaf">${zoekenVanaf}</input>

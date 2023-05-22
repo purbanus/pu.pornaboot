@@ -78,7 +78,6 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 	aModel.addAttribute( "zoekenVanaf", zoekenVanaf );
 	aModel.addAttribute( "directory", directory );
 	aModel.addAttribute( "orderBy", orderBy );
-	aModel.addAttribute( "vorigeOrderBy", orderBy );
 	LOG.info( "directory request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "directory";
 }

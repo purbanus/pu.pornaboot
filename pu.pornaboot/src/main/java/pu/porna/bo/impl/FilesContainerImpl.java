@@ -23,12 +23,13 @@ import pu.porna.dal.PornaFile.FileEntry;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 //@Data @@NOG Lombok klaagt over een IOException, maar ik zie niet waar dat op slaat
 public class FilesContainerImpl implements FilesContainer
 {
-private static final Logger LOG = LoggerFactory.getLogger( FilesContainer.class );
 @Autowired private PornaConfig pornaConfig; 
 
 @Data
@@ -142,7 +143,7 @@ Directory applyRowBounds( Directory aDirectory, RowBounds aRowBounds )
 	Directory directory = cloneDirectory( aDirectory );
 	int offset = Math.min( aRowBounds.getOffset(), directory.getFiles().size() );
 	int limit = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), directory.getFiles().size() );
-	LOG.debug( "Rowbounds for slice = " + offset + ", " + limit );
+	log.debug( "Rowbounds for slice = " + offset + ", " + limit );
 	directory.setFiles( directory.getFiles().subList( offset, limit ) );
 	return directory;
 }

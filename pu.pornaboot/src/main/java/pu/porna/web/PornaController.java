@@ -41,7 +41,7 @@ public String pagina( Model aodel )
 @GetMapping(value = { "/directory.html", "/directory" })
 public String directory( @ModelAttribute DirectoryRequest aDirectoryRequestParameters, Model aModel ) throws IOException 
 {
-	LOG.info( "Files request gestart" );
+	LOG.info( "Directory request gestart" );
 	StopWatch timer = new StopWatch();
 	timer.start();
 	
@@ -52,6 +52,10 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequestParam
 	if ( directoryString == null )
 	{
 		directoryString = getPornaConfig().getStartingDirectory();
+	}
+	else
+	{
+		directoryString = getPornaConfig().getStartingPrefix() + directoryString;
 	}
 	String zoekenVanaf = aDirectoryRequestParameters.getZoekenVanaf() == null ? "" : aDirectoryRequestParameters.getZoekenVanaf();
 

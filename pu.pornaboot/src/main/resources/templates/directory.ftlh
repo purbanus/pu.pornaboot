@@ -18,7 +18,7 @@ $(document).ready(function()
 	</script> 
 </head>
 <body>
-	<h1>Directory ${directory.name}</h1>
+	<h1>Directory ${directory.displayName}</h1>
 	
 	<form action='<@spring.url "/directory.html" />'>
 		<label for="zoekenVanaf">Zoeken vanaf</label>
@@ -45,7 +45,7 @@ $(document).ready(function()
 					
 					<#-- Tijdelijk @spring.url weggehaald. Het breekt url's af na een quote -->
 					<#-- <td class="string"><a href='<@spring.url "/directory.html?directory=${subDirectory.name}" />'>${subDirectory.name}</a></td> -->
-					<td class="string"><a href="/directory.html?directory=${subDirectory.name}">${subDirectory.name}</a></td>
+					<td class="string"><a href="/directory.html?directory=${subDirectory.displayName}">${subDirectory.displayName}</a></td>
 				</tr>
 			</#list>
 		</table>

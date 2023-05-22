@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import pu.porna.config.PornaConfig;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
@@ -16,6 +18,9 @@ public class Directory implements FileSystemObject
 {
 private final String name;
 private final LocalDateTime dateTimeLastModified;
+private final PornaConfig pornaConfig;
+
+// @@NOG Elimineren, dit is toch gewoon files.size()?
 private int totalNumberOfFiles;
 
 private final Directory parent;
@@ -34,5 +39,10 @@ private final PornaFile pornaFile;
 public long getSize()
 {
 	return 0;
+}
+
+public String getDisplayName()
+{
+	return getName().substring( getPornaConfig().getStartingPrefix().length() );
 }
 }

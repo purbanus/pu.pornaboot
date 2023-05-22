@@ -18,12 +18,14 @@ import pu.porna.dal.PornaFile.FileEntry;
 
 import freemarker.template.utility.StringUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Data
+@Slf4j
 public class PornaFileReader
 {
-private static final Logger LOG = LoggerFactory.getLogger(PornaFileReader.class);
+//private static final Logger LOG = LoggerFactory.getLogger(PornaFileReader.class);
 
 public PornaFile readPornaFile( String aDirectory, PornaConfig aPornaConfig  ) throws IOException
 {
@@ -82,7 +84,7 @@ private List<String> getValues( String aValuesString )
 private void handleInvalidPornaProperty( String aKey, Object aValue )
 {
 	// @@NOG Mailen?
-	LOG.error( "Error interpreting pornafile entry with key=" + aKey + " and values=" + aValue );
+	log.error( "Error interpreting pornafile entry with key=" + aKey + " and values=" + aValue );
 }
 
 }

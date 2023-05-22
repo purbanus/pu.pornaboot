@@ -109,6 +109,7 @@ public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttrib
 		.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
 		.parent( parentDirectory )
 		.pornaFile( pornafile )
+		.pornaConfig( pornaConfig )
 		.build();
 	getDirectories().add( newDirectory );
 	getDirectoryLookup().put( path.toString(), newDirectory );

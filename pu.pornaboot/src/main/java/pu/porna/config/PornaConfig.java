@@ -11,6 +11,7 @@ import lombok.Data;
 public class PornaConfig
 {
 private String startingDirectory;
+private String startingPrefix;
 private String pornaFileName;
 
 }

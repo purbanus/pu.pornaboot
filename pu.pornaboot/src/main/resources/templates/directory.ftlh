@@ -8,8 +8,8 @@
 <head>
 	<title>Files</title>
 	<link rel=StyleSheet href="<@spring.url '/css/main.css' />" type="text/css">
-	<script type="text/javascript" src="#springUrl( '/js/jquery-1.11.1.js' )"></script> 
-	<script type="text/javascript" src="#springUrl( '/js/jquery.tablesorter-2.0.js' )"></script> 
+	<script type="text/javascript" src="<@spring.url '/js/jquery-1.11.1.js' />"></script> 
+	<script type="text/javascript" src="<@spring.url '/js/jquery.tablesorter-2.0.js' />"></script> 
 	<script type="text/javascript">
 $(document).ready(function() 
 { 

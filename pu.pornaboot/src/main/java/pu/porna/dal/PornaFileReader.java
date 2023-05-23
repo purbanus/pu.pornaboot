@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 

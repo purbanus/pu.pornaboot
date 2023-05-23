@@ -44,6 +44,8 @@ private void checkProperties( Map<String, FileEntry> fileEntries )
 	MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
 	Collection<String> values = propertiesMap.get( "type" );
 	assertTrue( values.containsAll( List.of( "anal", "busty") ) );
+	values = propertiesMap.get( "kwaliteit" );
+	assertTrue( values.containsAll( List.of( "top") ) );
 }
 
 }

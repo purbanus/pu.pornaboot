@@ -27,9 +27,9 @@ public void testExtractFileEntriesFromProperties()
 {
 	Properties properties = new Properties();
 	properties.put( "FileA.type", "anal,busty" );
-	properties.put( "FileA.hoegoed", "top" );
+	properties.put( "FileA.kwaliteit", "top" );
 	properties.put( "FileB.type", "paartjes" );
-	properties.put( "FileB.hoegoed", "goed" );
+	properties.put( "FileB.kwaliteit", "goed" );
 	
 	Map<String, FileEntry> fileEntries = new PornaFileReader().extractFileEntriesFromProperties( properties );
 	checkProperties( fileEntries );
@@ -39,12 +39,12 @@ public void testExtractFileEntriesFromPropertiesWithInvalidProperty()
 {
 	Properties properties = new Properties();
 	properties.put( "FileA.type", "anal,busty" );
-	properties.put( "FileA.hoegoed", "top" );
+	properties.put( "FileA.kwaliteit", "top" );
 	properties.put( "FileBtype", "paartjes" );
-	properties.put( "FileB.hoegoed", "goed" );
+	properties.put( "FileB.kwaliteit", "goed" );
 	
 	Map<String, FileEntry> fileEntries = new PornaFileReader().extractFileEntriesFromProperties( properties );
-	checkProperties( fileEntries );
+	checkProperties( fileEntries, true );
 }
 
 @Test
@@ -64,12 +64,32 @@ public void testReadPornaFile() throws IOException
 
 private void checkProperties( Map<String, FileEntry> fileEntries )
 {
+	checkProperties( fileEntries, false );
+}
+private void checkProperties( Map<String, FileEntry> fileEntries, boolean aInvalidProperty )
+{
 	assertEquals( 2, fileEntries.size() );
-	FileEntry fileEntry = fileEntries.get( "FileA" );
-	assertNotNull( fileEntry );
-	MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
-	Collection<String> values = propertiesMap.get( "type" );
-	assertTrue( values.containsAll( List.of( "anal", "busty") ) );
+	{
+		FileEntry fileEntry = fileEntries.get( "FileA" );
+		assertNotNull( fileEntry );
+		MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
+		Collection<String> values = propertiesMap.get( "type" );
+		assertTrue( values.containsAll( List.of( "anal", "busty") ) );
+		values = propertiesMap.get( "kwaliteit" );
+		assertTrue( values.containsAll( List.of( "top") ) );
+	}
+	{
+		FileEntry fileEntry = fileEntries.get( "FileB" );
+		assertNotNull( fileEntry );
+		MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
+		if ( ! aInvalidProperty )
+		{
+			Collection<String> values = propertiesMap.get( "type" );
+			assertTrue( values.containsAll( List.of( "paartjes") ) );
+		}
+		Collection<String> values = propertiesMap.get( "kwaliteit" );
+		assertTrue( values.containsAll( List.of( "goed") ) );
+	}
 }
 
 }

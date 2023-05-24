@@ -40,7 +40,7 @@ private String kwaliteit;
 
 public void maakPornaFiles() throws IOException, URISyntaxException
 {
-	StopWatch timer = new StopWatch();
+	StopWatch timer = StopWatch.createStarted();
 	for ( Directory directory : getFilesContainer().getDataHolder().getDirectories() )
 	{
 		TypeKwaliteit typeKwaliteit = bepaalTypeKwaliteitUitDirectory( directory.getDisplayName() );

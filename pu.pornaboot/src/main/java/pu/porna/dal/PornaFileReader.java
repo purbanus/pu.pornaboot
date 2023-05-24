@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 
@@ -32,7 +29,8 @@ public PornaFile readPornaFile( String aDirectory, PornaConfig aPornaConfig  ) t
 	Properties properties = readPornaProperties( aDirectory + File.separator + aPornaConfig.getPornaFileName() );
 	Map<String, FileEntry> fileEntryMap = extractFileEntriesFromProperties( properties );
 	return PornaFile.builder()
-		// .directory( getDirectory() )
+		.directory( aDirectory )
+		.pornaConfig( aPornaConfig )
 		.fileEntries( fileEntryMap )
 		.build();
 }
@@ -50,6 +48,7 @@ Properties readPornaProperties( String aPath ) throws FileNotFoundException, IOE
 		return pornaProperties;
 	}
 }
+// @@NOG Naar PornaFile?
 Map<String, FileEntry> extractFileEntriesFromProperties( Properties aProperties )
 {
 	Map<String, FileEntry> fileEntryMap = new HashMap<>();

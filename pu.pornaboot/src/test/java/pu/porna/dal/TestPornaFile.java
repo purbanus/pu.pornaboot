@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,60 @@ public class TestPornaFile
 {
 @Autowired PornaConfig pornaConfig;
 
+public static Properties createProperties()
+{
+	Properties properties = new Properties();
+	properties.put( "FileA.type", "anal,busty" );
+	properties.put( "FileA.kwaliteit", "top" );
+	properties.put( "FileB.type", "paartjes" );
+	properties.put( "FileB.kwaliteit", "goed" );
+	return properties;
+}
+public static Map<String, FileEntry> createFileEntries()
+{
+	Properties properties = createProperties();
+	
+	Map<String, FileEntry> fileEntries = new PornaFileReader().extractFileEntriesFromProperties( properties );
+	return fileEntries;
+}
+
+public static void checkProperties( Properties properties )
+{
+	assertEquals( "anal,busty", properties.get( "FileA.type" ) );
+	assertEquals( "paartjes", properties.get( "FileB.type" ) );
+	assertEquals( "top", properties.get( "FileA.kwaliteit" ) );
+	assertEquals( "goed", properties.get( "FileB.kwaliteit" ) );
+}
+public static void checkFileEntries( Map<String, FileEntry> fileEntries )
+{
+	checkFileEntries( fileEntries, false );
+}
+public static void checkFileEntries( Map<String, FileEntry> fileEntries, boolean aInvalidProperty )
+{
+	assertEquals( 2, fileEntries.size() );
+	{
+		FileEntry fileEntry = fileEntries.get( "FileA" );
+		assertNotNull( fileEntry );
+		MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
+		Collection<String> values = propertiesMap.get( "type" );
+		assertTrue( values.containsAll( List.of( "anal", "busty") ) );
+		values = propertiesMap.get( "kwaliteit" );
+		assertTrue( values.containsAll( List.of( "top") ) );
+	}
+	{
+		FileEntry fileEntry = fileEntries.get( "FileB" );
+		assertNotNull( fileEntry );
+		MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
+		if ( ! aInvalidProperty )
+		{
+			Collection<String> values = propertiesMap.get( "type" );
+			assertTrue( values.containsAll( List.of( "paartjes") ) );
+		}
+		Collection<String> values = propertiesMap.get( "kwaliteit" );
+		assertTrue( values.containsAll( List.of( "goed") ) );
+	}
+}
+
 @Test
 public void testFromDirectory() throws IOException
 {
@@ -32,18 +87,18 @@ public void testFromDirectory() throws IOException
 	PornaFile pornaFile = PornaFile.fromDirectory( directory, pornaConfig );
 //	assertEquals( directory, pornaFile.getDirectory() );
 	Map<String, FileEntry> fileEntries = pornaFile.getFileEntries();
-	checkProperties( fileEntries );
+	checkFileEntries( fileEntries );
 	
 }
 
-private void checkProperties( Map<String, FileEntry> fileEntries )
+@Test
+public void testCreateProperties()
 {
-	assertEquals( 2, fileEntries.size() );
-	FileEntry fileEntry = fileEntries.get( "FileA" );
-	assertNotNull( fileEntry );
-	MultiValuedMap<String, String> propertiesMap = fileEntry.getProperties();
-	Collection<String> values = propertiesMap.get( "type" );
-	assertTrue( values.containsAll( List.of( "anal", "busty") ) );
+	Map<String, FileEntry> fileEntries = createFileEntries();
+	PornaFile pornaFile = new PornaFile();
+	pornaFile.setFileEntries( fileEntries );
+	Properties properties = pornaFile.createProperties();
+	checkProperties( properties );
 }
 
 }

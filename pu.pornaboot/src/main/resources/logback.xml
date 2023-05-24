@@ -27,7 +27,7 @@
 		<encoder>
 			<Pattern>${EXTENDED_PATTERN}</Pattern>
 		</encoder>
-	</appender> org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener
+	</appender>
 
 <!-- Deze zorgt voor dat afschuwelijke configuration report -->
 	<logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" level="info" additivity="false" />
@@ -46,7 +46,7 @@
 	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="debug" additivity="false" />
 	<logger name="org.springframework.web.servlet.DispatcherServlet" level="debug" additivity="false" />
 	<logger name="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" level="debug" additivity="false" />
-	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="debug" additivity="false" />
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="TRACE" />
 	<logger name="org.springframework.ui.freemarker.SpringTemplateLoader" level="debug" additivity="false" />
 	<logger name="org.springframework.web.servlet.view.ContentNegotiatingViewResolver " level="debug" additivity="false" />
 	<logger name="org.springframework.web.servlet.view.InternalResourceView" level="debug" additivity="false" />

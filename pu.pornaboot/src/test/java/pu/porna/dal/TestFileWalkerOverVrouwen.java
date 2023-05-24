@@ -28,9 +28,8 @@ public static final String OLD_ALL_DIRECTORY = "/media/purbanus/5TB Seagate/Vide
 public void testFromDirectory() throws IOException
 {
 	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY, pornaConfig );
-	StopWatch timer = new StopWatch();
-	timer.start();
- 	List<Directory> directories = walker.run();
+	StopWatch timer = StopWatch.createStarted();
+	List<Directory> directories = walker.run();
 	System.out.println( "Klaar! Files verzameld in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	assertTrue( directories.size() >= 130 );
 }
@@ -39,8 +38,7 @@ public void testFromDirectory() throws IOException
 public void testAndPrint() throws IOException
 {
 	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY, pornaConfig );
-	StopWatch timer = new StopWatch();
-	timer.start();
+	StopWatch timer = StopWatch.createStarted();
  	List<Directory> directories = walker.run();
 	System.out.println( "Klaar! Files verzameld in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	MatrixFormatter matrixFormatter = new MatrixFormatter();

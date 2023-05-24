@@ -29,7 +29,8 @@ public PornaFile readPornaFile( String aDirectory, PornaConfig aPornaConfig  ) t
 	Properties properties = readPornaProperties( aDirectory + File.separator + aPornaConfig.getPornaFileName() );
 	Map<String, FileEntry> fileEntryMap = extractFileEntriesFromProperties( properties );
 	return PornaFile.builder()
-		// .directory( getDirectory() )
+		.directory( aDirectory )
+		.pornaConfig( aPornaConfig )
 		.fileEntries( fileEntryMap )
 		.build();
 }
@@ -47,6 +48,7 @@ Properties readPornaProperties( String aPath ) throws FileNotFoundException, IOE
 		return pornaProperties;
 	}
 }
+// @@NOG Naar PornaFile?
 Map<String, FileEntry> extractFileEntriesFromProperties( Properties aProperties )
 {
 	Map<String, FileEntry> fileEntryMap = new HashMap<>();

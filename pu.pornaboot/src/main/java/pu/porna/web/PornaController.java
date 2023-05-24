@@ -1,6 +1,7 @@
 package pu.porna.web;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -31,19 +32,11 @@ private static final Logger LOG = LoggerFactory.getLogger(PornaController.class)
 @Autowired private PornaService pornaService;
 @Autowired private PornaConfig pornaConfig;
 
-@GetMapping(value = { "/pagina.html", "/pagina" } )
-public String pagina( Model aodel )
-{
-	LOG.info( "Ze vragen een pagina op" );
-
-	return "pagina";
-}
 @GetMapping(value = { "/directory.html", "/directory" })
 public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Model aModel ) throws IOException 
 {
 	LOG.info( "Directory request gestart" );
-	StopWatch timer = new StopWatch();
-	timer.start();
+	StopWatch timer = StopWatch.createStarted();
 	
 	// @@NOG rijen elimineren uit request parms
 	Integer rijen = aDirectoryRequest.getRijen();
@@ -80,6 +73,15 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 	aModel.addAttribute( "orderBy", orderBy );
 	LOG.info( "directory request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "directory";
+}
+@GetMapping(value = { "/laaddefaults" })
+public String laadDefaults() throws IOException, URISyntaxException
+{
+	LOG.info( "LaadDefaults request gestart" );
+	StopWatch timer = StopWatch.createStarted();
+	getPornaService().laadDefaults();
+	LOG.info( "LaadDefaults request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	return "redirect:/directory";
 }
 
 }

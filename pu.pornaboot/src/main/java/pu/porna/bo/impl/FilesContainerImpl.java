@@ -53,7 +53,7 @@ public PornaConfig getPornaConfig()
 @Override
 public void refresh() throws IOException
 {
-	StopWatch timer = new StopWatch();
+	StopWatch timer = StopWatch.createStarted();
 	FileWalker fileWalker = new FileWalker( getPornaConfig().getStartingDirectory(), getPornaConfig() );
 	List<Directory> newDirectories = fileWalker.run();
 	applyPropertiesAndSort( newDirectories );
@@ -97,7 +97,7 @@ Map<String, Directory> createDirectoriesMap( List<Directory> aNewDirectories )
 	return directoriesMap;
 }
 
-DataHolder getDataHolder() throws IOException
+public DataHolder getDataHolder() throws IOException
 {
 	if ( dataholder == null )
 	{

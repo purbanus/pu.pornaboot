@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,16 @@ public FileWalker( String aStartingDirectory, PornaConfig aPornaConfig )
 	super();
 	startingDirectory = Paths.get( expandHome( aStartingDirectory ) );
 	pornaConfig = aPornaConfig;
+}
+public List<String> getFouteDirectories()
+{
+	return Arrays.asList( FOUTE_DIRECTORIES );
+}
+public List<String> getFouteFiles()
+{
+	List<String> fouteFiles = new ArrayList<>( Arrays.asList( FOUTE_FILES ) );
+	fouteFiles.add( getPornaConfig().getPornaFileName() );
+	return fouteFiles;
 }
 public List<Directory> run() throws IOException
 {
@@ -143,7 +154,7 @@ public boolean isFileOk( Path aFile, BasicFileAttributes aAttributes )
 	{
 		return false;
 	}
-	for ( String fouteFile : FOUTE_FILES )
+	for ( String fouteFile : getFouteFiles() )
 	{
 		if ( aFile.endsWith( fouteFile ) )
 		{
@@ -158,7 +169,7 @@ public boolean isDirectoryOk( Path aDirectory )
 	{
 		return false;
 	}
-	for ( String fouteDirectory : FOUTE_DIRECTORIES )
+	for ( String fouteDirectory : getFouteDirectories() )
 	{
 		if ( aDirectory.endsWith( fouteDirectory ) )
 		{

@@ -1,6 +1,7 @@
 package pu.porna.service.impl;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Service;
 import pu.porna.bo.FilesContainer;
 import pu.porna.bo.RowBounds;
 import pu.porna.dal.Directory;
+import pu.porna.dal.PornaFileDefaultsLader;
 import pu.porna.service.PornaService;
 import pu.porna.web.OrderBy;
-import pu.porna.web.PornaController;
 
 import lombok.Data;
 
@@ -22,13 +23,20 @@ import lombok.Data;
 public class PornaServiceImpl implements PornaService
 {
 @SuppressWarnings( "unused" )
-private static final Logger LOG = LoggerFactory.getLogger(PornaController.class);
+private static final Logger LOG = LoggerFactory.getLogger(PornaServiceImpl.class);
 @Autowired private FilesContainer filesContainer;
+@Autowired private PornaFileDefaultsLader pornaFileDefaultsLader;
 
 @Override
 public Directory getFilesPerDirectory( String aDirectory, String aFromFile, RowBounds aRowBounds, OrderBy aOrderBy ) throws IOException
 {
 	return getFilesContainer().getFilesPerDirectory( aDirectory, aFromFile, aRowBounds, aOrderBy );
+}
+
+@Override
+public void laadDefaults() throws IOException, URISyntaxException
+{
+	getPornaFileDefaultsLader().maakPornaFiles();
 }
 
 }

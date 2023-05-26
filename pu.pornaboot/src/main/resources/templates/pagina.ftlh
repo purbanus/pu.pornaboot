@@ -1,1 +1,0 @@
-<p>Dit is pagina.ftl</p>

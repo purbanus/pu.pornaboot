@@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -165,5 +163,12 @@ Directory cloneDirectory( Directory directory )
 		.files( directory.getFiles() )
 		.subDirectories( directory.getSubDirectories() )
 		.build();
+}
+
+@Override
+public File getFile( String aDirectoryName, String aFileName ) throws IOException
+{
+	Directory directory = getDataHolder().getDirectoriesMap().get( aDirectoryName );
+	return directory.getFile( aFileName );
 }
 }

@@ -95,6 +95,7 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 			.directory( directory )
 			.size( aAttributes.size() )
 			.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+			.pornaConfig( getPornaConfig() )
 			.build();
 		directory.getFiles().add( file );
 	}

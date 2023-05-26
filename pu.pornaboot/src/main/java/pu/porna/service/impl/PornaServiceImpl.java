@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import pu.porna.bo.FilesContainer;
 import pu.porna.bo.RowBounds;
 import pu.porna.dal.Directory;
+import pu.porna.dal.File;
 import pu.porna.dal.PornaFileDefaultsLader;
 import pu.porna.service.PornaService;
 import pu.porna.web.OrderBy;
@@ -37,6 +38,12 @@ public Directory getFilesPerDirectory( String aDirectory, String aFromFile, RowB
 public void laadDefaults() throws IOException, URISyntaxException
 {
 	getPornaFileDefaultsLader().maakPornaFiles();
+}
+
+@Override
+public File getFile( String aDirectory, String aFileName ) throws IOException
+{
+	return getFilesContainer().getFile( aDirectory, aFileName );
 }
 
 }

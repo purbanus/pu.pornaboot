@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
+import pu.porna.dal.File;
 import pu.porna.service.PornaService;
 
 import lombok.Data;
@@ -38,7 +39,6 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 	LOG.info( "Directory request gestart" );
 	StopWatch timer = StopWatch.createStarted();
 	
-	// @@NOG rijen elimineren uit request parms
 	Integer rijen = aDirectoryRequest.getRijen();
 	Integer pageId = aDirectoryRequest.getPageId();
 	String directoryString = aDirectoryRequest.getDirectory();
@@ -82,6 +82,34 @@ public String laadDefaults() throws IOException, URISyntaxException
 	getPornaService().laadDefaults();
 	LOG.info( "LaadDefaults request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "redirect:/directory";
+}
+@GetMapping(value = { "/file.html", "/file" })
+public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) throws IOException 
+{
+	LOG.info( "File request gestart" );
+	StopWatch timer = StopWatch.createStarted();
+
+	String directoryString = aFileRequest.getDirectory();
+	if ( directoryString == null )
+	{
+		throw new RuntimeException( "Directory naam is verplicht" );
+	}
+	else
+	{
+		directoryString = getPornaConfig().getStartingPrefix() + directoryString;
+	}
+	
+	String fileString = aFileRequest.getName();
+	if ( fileString == null )
+	{
+		throw new RuntimeException( "File naam is verplicht" );
+	}
+	File file = getPornaService().getFile( directoryString, fileString );
+	
+	aModel.addAttribute( "file", file );
+
+	LOG.info( "File request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	return "file";
 }
 
 }

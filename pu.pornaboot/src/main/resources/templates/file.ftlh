@@ -12,52 +12,54 @@
 <body>
 	<h1>File ${file.name}</h1>
 
-	<table border="0" cellspacing="0" cellpadding="5" class="issueDetails">
-		<tr class="even">
-			<th class="label">Naam</th><td>${file.name}</td>
-		</tr>
-		<tr class="odd">
-			<th class="label">Directory</th><td>${file.directory.displayName}</td>
-		</tr>
-		<tr class="even">
-			<th class="label">Datum/Tijd</th><td>${file.dateTimeLastModified.format( 'dd-MM-yyyy HH:mm:ss' ) }</td>
-		</tr>
-		<tr class="odd">
-			<th class="label">Grootte</th><td>${file.size}</td>
-		</tr>
-		<tr class="even"> <#-- Hier de nieuwe notatie gebruiken voor null values -->
-			<th class="label">Kwaliteit</th><td>${(file.kwaliteit)!}</td>
-		</tr>
-		<tr class="odd">
-			<th class="label">Type</th><td>${(file.type)!}</td>
-		</tr>
-		<tr class="even">
-			<th class="label">Recensie</th><td>${(file.recensie)!}</td>
-		</tr>
-	</table>
-
-	<#--  	
-	<form action='<@spring.url "/directory.html" />'>
-		<input id="directory" type="hidden" name="directory" value="${directory.displayName}" />
-		
-		<label for="zoekenVanaf">Zoeken vanaf</label>
-		<input id="zoekenVanaf" type="text" name="zoekenVanaf">${zoekenVanaf}</input>
-		
-		<input type="radio" id="opNaam" name="orderBy" value="opNaam" <#if orderBy == "opNaam">checked</#if> />
-		<label for="opNaam">Op filenaam</label>
-		<input type="radio" id="opSize" name="orderBy" value="opSize" <#if orderBy == "opSize">checked</#if> />
-		<label for="opSize">Op file grootte</label>
-		<input type="radio" id="opDatum" name="orderBy" value="opDatum" <#if orderBy == "opDatum">checked</#if> />
-		<label for="opDatum">Op datum</label>
+	<form action='<@spring.url "/file-update.html" />'>
+		<input type="hidden" id="directory" name="directory" value="${file.directoryDisplayName}" />
+		<input type="hidden" id="fileName" name="fileName" value="${file.name}" />
+		<table border="0" cellspacing="0" cellpadding="5" class="issueDetails">
+			<tr class="even">
+				<th class="label">Naam</th><td>${file.name}</td>
+			</tr>
+			<tr class="odd">
+				<th class="label">Directory</th><td>${file.directory.displayName}</td>
+			</tr>
+			<tr class="even">
+				<th class="label">Datum/Tijd</th><td>${file.dateTimeLastModified.format( 'dd-MM-yyyy HH:mm:ss' ) }</td>
+			</tr>
+			<tr class="odd">
+				<th class="label">Grootte</th><td>${file.size}</td>
+			</tr>
+			<tr class="even">
+				<th class="label">Kwaliteit</th>
+				<td>
+					<#list kwaliteiten as kwaliteit>
+						<input type="radio" id="${kwaliteit}" name="kwaliteit" value="${kwaliteit}" <#if deKwaliteit?seqContains( kwaliteit )>checked</#if> />
+						<label for="${kwaliteit}">${kwaliteit}</label>
+					</#list>
+				</td>
+			</tr>
+			<tr class="odd">
+				<th class="label">Type</th>
+				<td>
+					<#list types as type>
+						<input type="checkbox" id="${type}" name="type" value="${type}" <#if deType?seqContains( type )>checked</#if> />
+						<label for="${type}">${type}</label>
+					</#list>
+				</td>
+			</tr>
+			<tr class="even">
+				<th class="label">Review</th><td>${(file.review)!}</td>
+			</tr>
+		</table>
 
 		<button type="submit" name="submit">Submit</button>
 	</form>
-	-->
+
 	<br />
 
+<#--
 	<video control>
 		<source	src="${file.videoLocation}" type="video/mp4" />
 	</video>
-	
+-->	
 </body>
 </html>

@@ -2,6 +2,7 @@ package pu.porna.service.impl;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,24 @@ public void laadDefaults() throws IOException, URISyntaxException
 public File getFile( String aDirectory, String aFileName ) throws IOException
 {
 	return getFilesContainer().getFile( aDirectory, aFileName );
+}
+
+@Override
+public Set<String> getKwaliteiten() throws IOException
+{
+	return getFilesContainer().getKwaliteiten();
+}
+
+@Override
+public Set<String> getTypes() throws IOException
+{
+	return getFilesContainer().getTypes();
+}
+
+@Override
+public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aType ) throws IOException
+{
+	getFilesContainer().saveFile( aDirectory, aFileName, aKwaliteit, aType );
 }
 
 }

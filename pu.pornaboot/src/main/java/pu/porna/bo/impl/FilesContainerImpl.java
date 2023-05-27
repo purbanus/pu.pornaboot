@@ -1,12 +1,17 @@
 package pu.porna.bo.impl;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
 import pu.porna.dal.File;
 import pu.porna.dal.FileWalker;
+import pu.porna.dal.PornaFile;
 import pu.porna.dal.PornaFile.FileEntry;
 import pu.porna.web.OrderBy;
 
@@ -40,12 +46,42 @@ public static class DataHolder
 {
 private final List<Directory> directories;
 private final Map<String, Directory> directoriesMap;
+@Builder.Default
+private MultiValuedMap<String, String> distinctProperties = null;
+private MultiValuedMap<String, String> getDistinctProperties()
+{
+	if ( distinctProperties == null )
+	{
+		MultiValuedMap<String, String> newDistinctProperties = new HashSetValuedHashMap<>();
+		for ( Directory directory : getDirectories() )
+		{
+			newDistinctProperties.putAll( directory.getPornaFile().getDistinctProperties() );
+		}
+		distinctProperties = newDistinctProperties;
+	}
+	return distinctProperties;
+}
+public Set<String> getKwaliteiten()
+{
+	Collection<String> properties = getDistinctProperties().get( "kwaliteit" );
+	return new TreeSet<>( properties );
+}
+public Set<String> getTypes()
+{
+	Collection<String> properties = getDistinctProperties().get( "type" );
+	return new TreeSet<>( properties );
+}
+
 }
 private DataHolder dataholder;
 
 public PornaConfig getPornaConfig()
 {
 	return pornaConfig;
+}
+public Directory getDirectory( String aDirectoryName) throws IOException
+{
+	return getDataHolder().getDirectoriesMap().get( aDirectoryName );
 }
 
 @Override
@@ -57,7 +93,10 @@ public void refresh() throws IOException
 	applyPropertiesAndSort( newDirectories );
 	Map<String, Directory> newDirectoriesMap = createDirectoriesMap( newDirectories );
 
-	dataholder = new DataHolder( newDirectories, newDirectoriesMap ); 
+	dataholder = DataHolder.builder()
+		.directories( newDirectories )
+		.directoriesMap( newDirectoriesMap )
+		.build(); 
 	log.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 }
 
@@ -170,5 +209,27 @@ public File getFile( String aDirectoryName, String aFileName ) throws IOExceptio
 {
 	Directory directory = getDataHolder().getDirectoriesMap().get( aDirectoryName );
 	return directory.getFile( aFileName );
+}
+
+@Override
+public Set<String> getKwaliteiten() throws IOException
+{
+	return getDataHolder().getKwaliteiten();
+}
+
+@Override
+public Set<String> getTypes() throws IOException
+{
+	return getDataHolder().getTypes();
+}
+
+@Override
+public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aType ) throws IOException
+{
+	Directory directory = getDirectory( aDirectory );
+	PornaFile pornaFile = directory.getPornaFile();
+	pornaFile.setProperty( aFileName, "kwaliteit", aKwaliteit );
+	pornaFile.setProperty( aFileName, "type", aType );
+	pornaFile.save();
 }
 }

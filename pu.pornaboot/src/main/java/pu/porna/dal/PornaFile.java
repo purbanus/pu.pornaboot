@@ -4,11 +4,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +57,30 @@ public void addProperty( String aFileName, String aProperty, String aValue )
 	}
 	fileEntry.getProperties().put( aProperty, aValue );
 }
+
+public Collection<String> splitPropertyValues( String aPropertyValues )
+{
+	return List.of( StringUtils.split( aPropertyValues, ',' ) );
+}
+public void setProperty( String aFileName, String aProperty, String aValues )
+{
+	if ( aValues == null )
+	{
+		return;
+	}
+	setProperty( aFileName, aProperty, splitPropertyValues( aValues ) );
+}
+public void setProperty( String aFileName, String aProperty, Collection<String> aValues )
+{
+	FileEntry fileEntry = getFileEntries().get( aFileName );
+	if ( fileEntry == null )
+	{
+		fileEntry = new FileEntry();
+		getFileEntries().put( aFileName, fileEntry );
+	}
+	fileEntry.getProperties().remove( aProperty );
+	fileEntry.getProperties().putAll( aProperty, aValues );
+}
 public void save() throws IOException
 {
 	Properties properties = createProperties();
@@ -76,5 +103,14 @@ Properties createProperties()
 	}
 	return properties;
 }
-
+public MultiValuedMap<String, String> getDistinctProperties()
+{
+	MultiValuedMap<String, String> properties = new HashSetValuedHashMap<>();
+	for ( String fileName : getFileEntries().keySet() )
+	{
+		FileEntry fileEntry = getFileEntries().get( fileName );
+		properties.putAll( fileEntry.getProperties() );
+	}
+	return properties;
+}
 }

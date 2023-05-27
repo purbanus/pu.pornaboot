@@ -1,6 +1,7 @@
 package pu.porna.dal;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
@@ -27,13 +28,21 @@ public String getDirectoryDisplayName()
 {
 	return getDirectory().getName().substring( getPornaConfig().getStartingPrefix().length() );
 }
-public String getKwaliteit()
+public Collection<String> getKwaliteit()
 {
-	return String.join( ",", properties.get( "kwaliteit" ) );
+	return properties.get( "kwaliteit" );
 }
-public String getType()
+public String getKwaliteitString()
 {
-	return String.join( ",", properties.get( "type" ) );
+	return String.join( ",", getKwaliteit() );
+}
+public Collection<String> getType()
+{
+	return properties.get( "type" );
+}
+public String getTypeString()
+{
+	return String.join( ",", getType() );
 }
 public String getVideoLocation()
 {

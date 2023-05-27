@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
+
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
 
-import freemarker.template.utility.StringUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-
 
 @Data
 @Slf4j
@@ -78,7 +78,7 @@ Map<String, FileEntry> extractFileEntriesFromProperties( Properties aProperties 
 }
 private List<String> getValues( String aValuesString )
 {
-	return List.of( StringUtil.split( aValuesString, ',' ) );
+	return List.of( StringUtils.split( aValuesString, ',' ) );
 }
 private void handleInvalidPornaProperty( String aKey, Object aValue )
 {

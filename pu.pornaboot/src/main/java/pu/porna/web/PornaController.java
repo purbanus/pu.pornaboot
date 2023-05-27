@@ -2,6 +2,7 @@ package pu.porna.web;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.view.RedirectView;
 
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
@@ -48,7 +50,7 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 	}
 	else
 	{
-		directoryString = getPornaConfig().getStartingPrefix() + directoryString;
+		directoryString = toRealDirectory( directoryString );
 	}
 	String zoekenVanaf = aDirectoryRequest.getZoekenVanaf() == null ? "" : aDirectoryRequest.getZoekenVanaf();
 	String orderByString = aDirectoryRequest.getOrderBy();
@@ -83,7 +85,7 @@ public String laadDefaults() throws IOException, URISyntaxException
 	LOG.info( "LaadDefaults request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "redirect:/directory";
 }
-@GetMapping(value = { "/file.html", "/file" })
+@GetMapping(value = { "/file.html" })
 public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) throws IOException 
 {
 	LOG.info( "File request gestart" );
@@ -96,7 +98,7 @@ public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) thr
 	}
 	else
 	{
-		directoryString = getPornaConfig().getStartingPrefix() + directoryString;
+		directoryString = toRealDirectory( directoryString );
 	}
 	
 	String fileString = aFileRequest.getName();
@@ -107,9 +109,32 @@ public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) thr
 	File file = getPornaService().getFile( directoryString, fileString );
 	
 	aModel.addAttribute( "file", file );
+	aModel.addAttribute( "kwaliteiten", getPornaService().getKwaliteiten() ); 
+	aModel.addAttribute( "deKwaliteit", file.getKwaliteit() );
+	aModel.addAttribute( "types", getPornaService().getTypes() ); 
+	aModel.addAttribute( "deType", file.getType() );
 
 	LOG.info( "File request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "file";
 }
-
+public String toRealDirectory( String displayDirectory )
+{
+	return getPornaConfig().getStartingPrefix() + displayDirectory;
+}
+@GetMapping(value = { "/file-update.html" })
+public RedirectView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateRequest, Model aModel ) throws IOException 
+{
+	LOG.info( "File-update request gestart" );
+	StopWatch timer = StopWatch.createStarted();
+	
+	String directory = aFileUpdateRequest.getDirectory();
+	String realDirectory = toRealDirectory( directory );
+	String fileName = aFileUpdateRequest.getFileName();
+	String kwaliteit = aFileUpdateRequest.getKwaliteit();
+	String type = aFileUpdateRequest.getType();
+	
+	getPornaService().saveFile( realDirectory, fileName, kwaliteit, type );
+	
+	return new RedirectView( "/file.html?directory=" + directory + "&name=" + fileName );
+}
 }

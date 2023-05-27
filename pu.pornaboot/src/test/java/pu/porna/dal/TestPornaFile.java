@@ -101,4 +101,21 @@ public void testCreateProperties()
 	checkProperties( properties );
 }
 
+@Test
+public void testGetDistinctProperties()
+{
+	Map<String, FileEntry> fileEntries = createFileEntries();
+	PornaFile pornaFile = new PornaFile();
+	pornaFile.setFileEntries( fileEntries );
+	MultiValuedMap<String, String> distinctProperties = pornaFile.getDistinctProperties();
+	assertTrue( distinctProperties.containsKey( "kwaliteit" ) );
+	Collection<String> kwaliteiten = distinctProperties.get( "kwaliteit" );
+	assertTrue( kwaliteiten.contains( "top" ) );
+	assertTrue( kwaliteiten.contains( "goed" ) );
+	assertTrue( distinctProperties.containsKey( "kwaliteit" ) );
+	Collection<String> types = distinctProperties.get( "type" );
+	assertTrue( types.contains( "anal" ) );
+	assertTrue( types.contains( "busty" ) );
+	assertTrue( types.contains( "paartjes" ) );
+}
 }

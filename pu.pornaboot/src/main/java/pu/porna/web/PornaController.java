@@ -2,7 +2,6 @@ package pu.porna.web;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -135,6 +134,7 @@ public RedirectView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateReq
 	
 	getPornaService().saveFile( realDirectory, fileName, kwaliteit, type );
 	
+	LOG.info( "File update request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return new RedirectView( "/file.html?directory=" + directory + "&name=" + fileName );
 }
 }

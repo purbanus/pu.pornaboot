@@ -10,7 +10,7 @@
 	<link rel=StyleSheet href="<@spring.url '/css/main.css' />" type="text/css">
 </head>
 <body>
-	<h1>File ${file.name}</h1>
+	<h1>${file.name}</h1>
 
 	<form action='<@spring.url "/file-update.html" />'>
 		<input type="hidden" id="directory" name="directory" value="${file.directoryDisplayName}" />
@@ -40,10 +40,13 @@
 			<tr class="odd">
 				<th class="label">Type</th>
 				<td>
-					<#list types as type>
-						<input type="checkbox" id="${type}" name="type" value="${type}" <#if deType?seqContains( type )>checked</#if> />
-						<label for="${type}">${type}</label>
-					</#list>
+					<div class="checkbox">
+						<#list types as type>
+							<input type="checkbox" id="${type}" name="type" value="${type}" <#if deType?seqContains( type )>checked</#if> />
+							<label for="${type}">${type}</label>
+							<br />
+						</#list>
+					</div>
 				</td>
 			</tr>
 			<tr class="even">

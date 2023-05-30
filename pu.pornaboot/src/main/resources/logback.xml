@@ -30,7 +30,8 @@
 	</appender>
 
 <!-- Deze zorgt voor dat afschuwelijke configuration report -->
-	<logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" level="info" additivity="false" />
+	<logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" level="warn" additivity="false" />
+	<logger name="org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener" level="warn" additivity="false" />
 	<logger name="org.springframework.beans" level="info" additivity="false" />
 	<logger name="org.hibernate.type" level="info" additivity="false" />
 

@@ -64,7 +64,7 @@
 			</thead>
 			<#list directory.files as file>
 				<tr class=${file?itemParity}>
-					<td class="string"><a href='<@spring.url "/file.html?directory=${directory.displayName}&name=${file.name}" />'>${file.name}</a></td>
+					<td class="string"><a href='<@spring.url "/file.html?directory=${directory.displayName}&fileName=${file.name}" />'>${file.name}</a></td>
 					<td class="number">${file.size}</td>
 					<td class="string">${file.dateTimeLastModified.format( 'dd-MM-yyyy HH:mm:ss' ) }</td>
 					<#-- <td class="string">${file.dateTimeLastModified }</td> -->

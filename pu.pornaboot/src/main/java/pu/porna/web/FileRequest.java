@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class FileRequest
 {
 private String directory;
-private String name;
+private String fileName;
 }

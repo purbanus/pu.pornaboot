@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pu.porna.config.PornaConfig;
@@ -68,10 +70,10 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 		paginator = new Paginator( rijen, pageId );
 		directory = getPornaService().getFilesPerDirectory( directoryString, zoekenVanaf, paginator.getHuidigeRowBounds(), orderBy );
 	}
-	aModel.addAttribute( "paginator", paginator );
-	aModel.addAttribute( "zoekenVanaf", zoekenVanaf );
-	aModel.addAttribute( "directory", directory );
-	aModel.addAttribute( "orderBy", orderBy );
+	aModel.addAttribute( "paginator", paginator )
+		.addAttribute( "zoekenVanaf", zoekenVanaf )
+		.addAttribute( "directory", directory )
+		.addAttribute( "orderBy", orderBy );
 	LOG.info( "directory request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "directory";
 }
@@ -100,18 +102,18 @@ public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) thr
 		directoryString = toRealDirectory( directoryString );
 	}
 	
-	String fileString = aFileRequest.getName();
+	String fileString = aFileRequest.getFileName();
 	if ( fileString == null )
 	{
 		throw new RuntimeException( "File naam is verplicht" );
 	}
 	File file = getPornaService().getFile( directoryString, fileString );
 	
-	aModel.addAttribute( "file", file );
-	aModel.addAttribute( "kwaliteiten", getPornaService().getKwaliteiten() ); 
-	aModel.addAttribute( "deKwaliteit", file.getKwaliteit() );
-	aModel.addAttribute( "types", getPornaService().getTypes() ); 
-	aModel.addAttribute( "deType", file.getType() );
+	aModel.addAttribute( "file", file )
+		.addAttribute( "kwaliteiten", getPornaService().getKwaliteiten() ) 
+		.addAttribute( "deKwaliteit", file.getKwaliteit() )
+		.addAttribute( "types", getPornaService().getTypes() ) 
+		.addAttribute( "deType", file.getType() );
 
 	LOG.info( "File request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "file";
@@ -121,7 +123,7 @@ public String toRealDirectory( String displayDirectory )
 	return getPornaConfig().getStartingPrefix() + displayDirectory;
 }
 @GetMapping(value = { "/file-update.html" })
-public RedirectView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateRequest, Model aModel ) throws IOException 
+public ModelAndView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateRequest, ModelMap aModel ) throws IOException 
 {
 	LOG.info( "File-update request gestart" );
 	StopWatch timer = StopWatch.createStarted();
@@ -135,6 +137,20 @@ public RedirectView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateReq
 	getPornaService().saveFile( realDirectory, fileName, kwaliteit, type );
 	
 	LOG.info( "File update request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
-	return new RedirectView( "/file.html?directory=" + directory + "&name=" + fileName );
+	
+	//return new RedirectView( "/file.html?directory=" + directory + "&fileName=" + fileName );
+	
+	// Forward proberen
+	aModel.addAttribute( "directory", directory )
+		.addAttribute( "fileName", fileName );
+	return new ModelAndView( "forward:/file.html", aModel );
+}
+@GetMapping(value = { "/give-error.html" })
+public String giveError() throws IOException 
+{
+	LOG.info( "Give error request gestart" );
+	StopWatch timer = StopWatch.createStarted();
+	
+	throw new RuntimeException( "Deze fout is gegenereerd door PU" );
 }
 }

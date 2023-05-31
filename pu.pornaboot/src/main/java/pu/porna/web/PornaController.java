@@ -14,7 +14,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.Directory;
@@ -149,8 +148,6 @@ public ModelAndView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateReq
 public String giveError() throws IOException 
 {
 	LOG.info( "Give error request gestart" );
-	StopWatch timer = StopWatch.createStarted();
-	
 	throw new RuntimeException( "Deze fout is gegenereerd door PU" );
 }
 }

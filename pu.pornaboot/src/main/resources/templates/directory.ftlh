@@ -41,12 +41,7 @@
 			</thead>
 			<#list directory.subDirectories as subDirectory>
 				<tr class=${subDirectory?itemParity}>
-				<#-- Check of directory.subDirectory de quote bevat - ja dus -->
-					<#-- <td class="string">subDirName=${subDirectory.name}</td>  -->
-					
-					<#-- Tijdelijk @spring.url weggehaald. Het breekt url's af na een quote -->
-					<#-- <td class="string"><a href='<@spring.url "/directory.html?directory=${subDirectory.name}" />'>${subDirectory.name}</a></td> -->
-					<td class="string"><a href="/directory.html?directory=${subDirectory.displayName}">${subDirectory.displayName}</a></td>
+					<td class="string"><a href='<@spring.url "/directory.html?directory=${subDirectory.displayName}" />'>${subDirectory.displayName}</a></td>
 				</tr>
 			</#list>
 		</table>

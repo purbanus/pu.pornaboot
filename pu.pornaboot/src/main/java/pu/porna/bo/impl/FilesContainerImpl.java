@@ -1,7 +1,7 @@
 package pu.porna.bo.impl;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -9,36 +9,37 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.map.HashedMap;
-import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
 import pu.porna.bo.FilesContainer;
+import pu.porna.bo.Kwaliteit;
+import pu.porna.bo.Property;
 import pu.porna.bo.RowBounds;
 import pu.porna.config.PornaConfig;
-import pu.porna.dal.Directory;
-import pu.porna.dal.File;
+import pu.porna.dal.DirectoryConverter;
+import pu.porna.dal.FileRepository;
 import pu.porna.dal.FileWalker;
-import pu.porna.dal.PornaFile;
-import pu.porna.dal.PornaFile.FileEntry;
 import pu.porna.web.OrderBy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+@Data
 @Component
 @Slf4j
 //@Data @@NOG Lombok klaagt over een IOException, maar ik zie niet waar dat op slaat
 public class FilesContainerImpl implements FilesContainer
 {
-@Autowired private PornaConfig pornaConfig; 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -47,49 +48,77 @@ public static class DataHolder
 private final List<Directory> directories;
 private final Map<String, Directory> directoriesMap;
 @Builder.Default
-private MultiValuedMap<String, String> distinctProperties = null;
-private MultiValuedMap<String, String> getDistinctProperties()
+private Set<String> distinctProperties = null;
+private Set<String> getDistinctProperties()
 {
 	if ( distinctProperties == null )
 	{
-		MultiValuedMap<String, String> newDistinctProperties = new HashSetValuedHashMap<>();
+		Set<String> newDistinctProperties = new TreeSet<>();
 		for ( Directory directory : getDirectories() )
 		{
-			newDistinctProperties.putAll( directory.getPornaFile().getDistinctProperties() );
+			for ( File file : directory.getFiles() )
+			{
+				newDistinctProperties.addAll( file.getPropertiesAsStrings() );
+			}
 		}
 		distinctProperties = newDistinctProperties;
 	}
 	return distinctProperties;
 }
+// @@NOG Overbodig
+public Set<String> getProperties()
+{
+	return getDistinctProperties();
+}
 public Set<String> getKwaliteiten()
 {
-	Collection<String> properties = getDistinctProperties().get( "kwaliteit" );
-	return new TreeSet<>( properties );
+	Set<String> kwaliteiten = new TreeSet<>(); 
+	for ( Kwaliteit kwaliteit : Kwaliteit.values() )
+	{
+		kwaliteiten.add( kwaliteit.getName() );
+	}
+	return kwaliteiten;
 }
-public Set<String> getTypes()
-{
-	Collection<String> properties = getDistinctProperties().get( "type" );
-	return new TreeSet<>( properties );
 }
+//@Autowired private DirectoryRepository directoryRepository;
+@Autowired private DirectoryConverter directoryConverter;
+@Autowired private FileRepository fileRepository;
+@Autowired private PornaConfig pornaConfig; 
 
-}
+@ToString.Exclude
+@EqualsAndHashCode.Exclude
 private DataHolder dataholder;
 
 public PornaConfig getPornaConfig()
 {
 	return pornaConfig;
 }
-public Directory getDirectory( String aDirectoryName) throws IOException
+public Directory getDirectory( String aDirectoryName)
 {
 	return getDataHolder().getDirectoriesMap().get( aDirectoryName );
 }
 
+//@Override
+//public void refresh()
+//{
+//	StopWatch timer = StopWatch.createStarted();
+//	FileWalker fileWalker = new FileWalker( getPornaConfig().getStartingDirectory(), getPornaConfig() );
+//	List<Directory> newDirectories = fileWalker.run();
+//	applyPropertiesAndSort( newDirectories );
+//	Map<String, Directory> newDirectoriesMap = createDirectoriesMap( newDirectories );
+//
+//	dataholder = DataHolder.builder()
+//		.directories( newDirectories )
+//		.directoriesMap( newDirectoriesMap )
+//		.build(); 
+//	log.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+//}
 @Override
-public void refresh() throws IOException
+public void refresh()
 {
 	StopWatch timer = StopWatch.createStarted();
-	FileWalker fileWalker = new FileWalker( getPornaConfig().getStartingDirectory(), getPornaConfig() );
-	List<Directory> newDirectories = fileWalker.run();
+
+	List<Directory> newDirectories = getDirectoryConverter().getAllDirectories();
 	applyPropertiesAndSort( newDirectories );
 	Map<String, Directory> newDirectoriesMap = createDirectoriesMap( newDirectories );
 
@@ -105,24 +134,22 @@ void applyPropertiesAndSort( List<Directory> aDirectories )
 	for ( Directory directory : aDirectories )
 	{
 		directory.setTotalNumberOfFiles( directory.getFiles().size() );
-		for ( File file : directory.getFiles() )
-		{
-			applyProperties( file, directory );
-		}
 		directory.getFiles().sort( ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
-		directory.getSubDirectories().sort( ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
-		applyPropertiesAndSort( directory.getSubDirectories() );
+		// @@NOG Moet dit eigenlijk wel? Alle diectories zitten toch al in aDirectories?
+		// @@CHECK
+		// directory.getSubDirectories().sort( ( a, b ) -> a.getName().compareToIgnoreCase( b.getName() ) );
+		// applyPropertiesAndSort( directory.getSubDirectories() );
 	}
 }
 
-void applyProperties( File aFile, Directory aDirectory )
-{
-	FileEntry fileEntry = aDirectory.getPornaFile().getFileEntries().get( aFile.getName() );
-	if ( fileEntry != null )
-	{
-		aFile.setProperties( fileEntry.getProperties() );
-	}
-}
+//void applyProperties( File aFile, Directory aDirectory )
+//{
+//	FileEntry fileEntry = aDirectory.getPornaFile().getFileEntries().get( aFile.getName() );
+//	if ( fileEntry != null )
+//	{
+//		aFile.setProperties( fileEntry.getProperties() );
+//	}
+//}
 
 Map<String, Directory> createDirectoriesMap( List<Directory> aNewDirectories )
 {
@@ -134,7 +161,7 @@ Map<String, Directory> createDirectoriesMap( List<Directory> aNewDirectories )
 	return directoriesMap;
 }
 
-public DataHolder getDataHolder() throws IOException
+public DataHolder getDataHolder()
 {
 	if ( dataholder == null )
 	{
@@ -144,7 +171,7 @@ public DataHolder getDataHolder() throws IOException
 }
 
 @Override
-public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileName, RowBounds aRowBounds, OrderBy aOrderBy ) throws IOException
+public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileName, RowBounds aRowBounds, OrderBy aOrderBy )
 {
 	if ( StringUtils.isEmpty( aDirectoryName ) )
 	{
@@ -163,6 +190,7 @@ public Directory getFilesPerDirectory( String aDirectoryName, String aFromFileNa
 }
 
 // @@NOG Je kunt dit veralgemenen door ipv een Directory een List<File> op te geven
+// @@NOG Waarvoor? YAGNI!
 Directory retainFilesStartingWith( String aFromFileName, Directory aDirectory )
 {
 	if ( StringUtils.isEmpty( aFromFileName ) )
@@ -193,14 +221,14 @@ Directory applyRowBounds( Directory aDirectory, RowBounds aRowBounds )
 Directory cloneDirectory( Directory directory )
 {
 	return Directory.builder()
+		.id( directory.getId() )
 		.name( directory.getName() )
 		.dateTimeLastModified( directory.getDateTimeLastModified() )
+		.pornaConfig( pornaConfig )
 		.totalNumberOfFiles( directory.getTotalNumberOfFiles() )
 		.parent( directory.getParent() )
-		.pornaFile( directory.getPornaFile() )
-		.pornaConfig( pornaConfig )
-		.files( directory.getFiles() )
 		.subDirectories( directory.getSubDirectories() )
+		.files( directory.getFiles() )
 		.build();
 }
 
@@ -218,18 +246,29 @@ public Set<String> getKwaliteiten() throws IOException
 }
 
 @Override
-public Set<String> getTypes() throws IOException
+public Set<String> getProperties()
 {
-	return getDataHolder().getTypes();
+	return getDataHolder().getProperties();
 }
 
 @Override
-public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aType ) throws IOException
+public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aProperty, String aReview ) throws IOException
 {
-	Directory directory = getDirectory( aDirectory );
-	PornaFile pornaFile = directory.getPornaFile();
-	pornaFile.setProperty( aFileName, "kwaliteit", aKwaliteit );
-	pornaFile.setProperty( aFileName, "type", aType );
-	pornaFile.save();
+	File file = getFile( aDirectory, aFileName );
+	file.setKwaliteit( Kwaliteit.fromString( aKwaliteit ) );
+	file.setReview( aReview );
+	file.setProperties( propertyStringsToProperties( aProperty ) );
+	getFileRepository().save( file );
 }
+List<Property> propertyStringsToProperties( String aPropertyValues )
+{
+	List<String> propertyStrings = List.of( StringUtils.split( aPropertyValues, ',' ) );
+	List<Property> properties = new ArrayList<>();
+	for ( String propertyString : propertyStrings )
+	{
+		properties.add( Property.builder().name( propertyString ).build() );
+	}
+	return properties;
+}
+
 }

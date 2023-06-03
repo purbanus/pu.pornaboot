@@ -2,7 +2,7 @@ package pu.porna.web;
 
 import java.util.Comparator;
 
-import pu.porna.dal.FileSystemObject;
+import pu.porna.bo.FileSystemObject;
 
 public enum OrderBy
 {

@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
 import pu.porna.bo.FilesContainer;
 import pu.porna.bo.RowBounds;
-import pu.porna.dal.Directory;
-import pu.porna.dal.File;
 import pu.porna.dal.PornaFileDefaultsLader;
 import pu.porna.service.PornaService;
 import pu.porna.web.OrderBy;
@@ -54,15 +54,15 @@ public Set<String> getKwaliteiten() throws IOException
 }
 
 @Override
-public Set<String> getTypes() throws IOException
+public Set<String> getProperties() throws IOException
 {
-	return getFilesContainer().getTypes();
+	return getFilesContainer().getProperties();
 }
 
 @Override
-public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aType ) throws IOException
+public void saveFile( String aDirectory, String aFileName, String aKwaliteit, String aType, String aReview ) throws IOException
 {
-	getFilesContainer().saveFile( aDirectory, aFileName, aKwaliteit, aType );
+	getFilesContainer().saveFile( aDirectory, aFileName, aKwaliteit, aType, aReview );
 }
 
 }

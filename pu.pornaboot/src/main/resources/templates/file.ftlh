@@ -41,9 +41,9 @@
 				<th class="label">Type</th>
 				<td>
 					<div class="checkbox">
-						<#list types as type>
-							<input type="checkbox" id="${type}" name="type" value="${type}" <#if deType?seqContains( type )>checked</#if> />
-							<label for="${type}">${type}</label>
+						<#list properties as property>
+							<input type="checkbox" id="${property}" name="property" value="${property}" <#if deProperties?seqContains( property )>checked</#if> />
+							<label for="${property}">${property}</label>
 							<br />
 						</#list>
 					</div>

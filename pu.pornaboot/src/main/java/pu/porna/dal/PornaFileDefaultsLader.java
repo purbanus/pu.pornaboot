@@ -12,6 +12,8 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
 import pu.porna.bo.impl.FilesContainerImpl;
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
@@ -29,10 +31,10 @@ public class PornaFileDefaultsLader
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public static class TypeKwaliteit
+public static class KwaliteitProperty
 {
-private String type;
 private String kwaliteit;
+private String property;
 }
 
 @Autowired private PornaConfig pornaConfig;
@@ -43,7 +45,7 @@ public void maakPornaFiles() throws IOException, URISyntaxException
 	StopWatch timer = StopWatch.createStarted();
 	for ( Directory directory : getFilesContainer().getDataHolder().getDirectories() )
 	{
-		TypeKwaliteit typeKwaliteit = bepaalTypeKwaliteitUitDirectory( directory.getDisplayName() );
+		KwaliteitProperty typeKwaliteit = bepaalKwaliteitPropertyUitDirectory( directory.getDisplayName() );
 		FileEntry fileEntry = maakFileEntry( typeKwaliteit );
 		Map<String, FileEntry> fileEntries = new HashMap<>();
 		for ( File file : directory.getFiles() )
@@ -56,37 +58,37 @@ public void maakPornaFiles() throws IOException, URISyntaxException
 	log.info( "MaakPornaFiles klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 }
 
-TypeKwaliteit bepaalTypeKwaliteitUitDirectory( String aDirectory )
+public static KwaliteitProperty bepaalKwaliteitPropertyUitDirectory( String aDirectory )
 {
 	Path path = Paths.get( aDirectory );
 	int index = path.getNameCount() - 1; //Laatste element
 	String pathElement = path.getName( index ).toString();
-	TypeKwaliteit typeKwaliteit = new TypeKwaliteit();
+	KwaliteitProperty kwaliteitProperty = new KwaliteitProperty();
 	if ( pathElement.equals( "top" ) || pathElement.equals( "goed" ) || pathElement.equals( "mwah" ) )
 	{
-		typeKwaliteit.setKwaliteit( pathElement );
+		kwaliteitProperty.setKwaliteit( pathElement );
 		index--;
 		pathElement = path.getName( index ).toString();
 		if ( pathElement.equals( "gewoon" ) || pathElement.equals( "spanking" ) )
 		{
-			typeKwaliteit.setType( "bdsm-" + pathElement );
-			return typeKwaliteit;
+			kwaliteitProperty.setProperty( "bdsm-" + pathElement );
+			return kwaliteitProperty;
 		}
 	}
 	if ( path.getNameCount() == 1 )
 	{
-		typeKwaliteit.setType( path.getName( 0 ).toString() );
+		kwaliteitProperty.setProperty( path.getName( 0 ).toString() );
 	}
 	else
 	{
-		typeKwaliteit.setType( path.getName( 1 ).toString() );
+		kwaliteitProperty.setProperty( path.getName( 1 ).toString() );
 	}
-	return typeKwaliteit;
+	return kwaliteitProperty;
 }
-FileEntry maakFileEntry( TypeKwaliteit typeKwaliteit )
+FileEntry maakFileEntry( KwaliteitProperty typeKwaliteit )
 {
 	FileEntry fileEntry = new FileEntry();
-	fileEntry.getProperties().put( "type", typeKwaliteit.getType() );
+	fileEntry.getProperties().put( "property", typeKwaliteit.getProperty() );
 	if ( typeKwaliteit.getKwaliteit() != null )
 	{
 		fileEntry.getProperties().put( "kwaliteit", typeKwaliteit.getKwaliteit() );

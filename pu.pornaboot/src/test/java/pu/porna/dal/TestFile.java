@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import pu.porna.bo.File;
+
 public class TestFile
 {
 

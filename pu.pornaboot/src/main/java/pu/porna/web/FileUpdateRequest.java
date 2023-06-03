@@ -12,5 +12,7 @@ public class FileUpdateRequest
 private String directory;
 private String fileName;
 private String kwaliteit;
-private String type;
+// @@NOG Moet dat niet een List<String> zijn?
+private String property;
+private String review;
 }

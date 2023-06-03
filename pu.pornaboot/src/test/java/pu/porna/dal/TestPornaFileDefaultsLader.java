@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import pu.porna.bo.Directory;
 import pu.porna.bo.impl.FilesContainerImpl;
 import pu.porna.dal.PornaFile.FileEntry;
-import pu.porna.dal.PornaFileDefaultsLader.TypeKwaliteit;
+import pu.porna.dal.PornaFileDefaultsLader.KwaliteitProperty;
 
 import lombok.Data;
 
@@ -29,53 +30,53 @@ public void testPath() throws IOException
 	Path path = Paths.get( directory.getName() );
 	Path lastPathElement = path.getName( path.getNameCount() - 1 );
 	String lastElement = lastPathElement.toString();
-	assertEquals( "vrouwen", lastElement );
+	assertEquals( "Dir A", lastElement );
 }
 
 @Test
 public void testBepaalTypeKwaliteitUitDirectory()
 {
 	PornaFileDefaultsLader pornaFileDefaultsLader = new PornaFileDefaultsLader();
-	TypeKwaliteit typeKwaliteit;
+	KwaliteitProperty typeKwaliteit;
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/paartjes/top" );
-	assertEquals( "paartjes", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/paartjes/top" );
+	assertEquals( "paartjes", typeKwaliteit.getProperty() );
 	assertEquals( "top", typeKwaliteit.getKwaliteit() );
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/paartjes/goed" );
-	assertEquals( "paartjes", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/paartjes/goed" );
+	assertEquals( "paartjes", typeKwaliteit.getProperty() );
 	assertEquals( "goed", typeKwaliteit.getKwaliteit() );
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/paartjes/mwah" );
-	assertEquals( "paartjes", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/paartjes/mwah" );
+	assertEquals( "paartjes", typeKwaliteit.getProperty() );
 	assertEquals( "mwah", typeKwaliteit.getKwaliteit() );
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/enema" );
-	assertEquals( "enema", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/enema" );
+	assertEquals( "enema", typeKwaliteit.getProperty() );
 	assertEquals( null, typeKwaliteit.getKwaliteit() );
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/bdsm/spanking/top" );
-	assertEquals( "bdsm-spanking", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/bdsm/spanking/top" );
+	assertEquals( "bdsm-spanking", typeKwaliteit.getProperty() );
 	assertEquals( "top", typeKwaliteit.getKwaliteit() );
 	
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/bdsm/gewoon/goed" );
-	assertEquals( "bdsm-gewoon", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/bdsm/gewoon/goed" );
+	assertEquals( "bdsm-gewoon", typeKwaliteit.getProperty() );
 	assertEquals( "goed", typeKwaliteit.getKwaliteit() );
 
-	typeKwaliteit = pornaFileDefaultsLader.bepaalTypeKwaliteitUitDirectory( "/vrouwen/asian/vivian-hsu" );
-	assertEquals( "asian", typeKwaliteit.getType() );
+	typeKwaliteit = pornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( "/vrouwen/asian/vivian-hsu" );
+	assertEquals( "asian", typeKwaliteit.getProperty() );
 	assertEquals( null, typeKwaliteit.getKwaliteit() );
 }
 @Test
 public void testMaakFileEntry()
 {
 	PornaFileDefaultsLader pornaFileDefaultsLader = new PornaFileDefaultsLader();
-	TypeKwaliteit typeKwaliteit;
+	KwaliteitProperty kwaliteitProperty;
 	
-	typeKwaliteit = new TypeKwaliteit( "paartjes", "top" );
+	kwaliteitProperty = new KwaliteitProperty( "top", "paartjes" );
 	FileEntry expected = new FileEntry();
-	expected.getProperties().put( "type", "paartjes" );
+	expected.getProperties().put( "property", "paartjes" );
 	expected.getProperties().put( "kwaliteit", "top" );
-	assertEquals( expected, pornaFileDefaultsLader.maakFileEntry( typeKwaliteit ) );
+	assertEquals( expected, pornaFileDefaultsLader.maakFileEntry( kwaliteitProperty ) );
 }
 }

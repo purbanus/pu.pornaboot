@@ -20,10 +20,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
+import pu.porna.bo.Kwaliteit;
+import pu.porna.bo.Property;
 import pu.porna.config.PornaConfig;
+import pu.porna.dal.PornaFileDefaultsLader.KwaliteitProperty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -86,15 +92,20 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 		Path directoryPath = path.getParent();
 		String directoryString = directoryPath.toString();
 		Directory directory = getDirectoryLookup().get( directoryString );
+		KwaliteitProperty kwaliteitProperty = PornaFileDefaultsLader.bepaalKwaliteitPropertyUitDirectory( directoryString );
+		Kwaliteit kwaliteit = kwaliteitProperty.getKwaliteit() == null ? null :Kwaliteit.fromString( kwaliteitProperty.getKwaliteit() );
 		if ( directory == null )
 		{
 			throw new RuntimeException( "Directory bestaat niet: " + directoryString );
 		}
 		File file = File.builder()
 			.name( path.getFileName().toString() )
-			.directory( directory )
 			.size( aAttributes.size() )
 			.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
+			.directory( directory )
+			// review is er nog niet
+			.kwaliteit( kwaliteit )
+			.properties( propertyStringsToProperties( kwaliteitProperty.getProperty() ) )
 			.pornaConfig( getPornaConfig() )
 			.build();
 		directory.getFiles().add( file );
@@ -102,6 +113,17 @@ public FileVisitResult visitFile( Path aFile, BasicFileAttributes aAttributes )
 	// Je kunt hier altijd CONTINUE retourneren want je wilt doorgaan met de volgende file, ongeacht
 	// of je deze verwerkt hebt.
 	return CONTINUE;
+}
+// @@NOG zit ook al in FilesContainer
+List<Property> propertyStringsToProperties( String aPropertyValues )
+{
+	List<String> propertyStrings = List.of( StringUtils.split( aPropertyValues, ',' ) );
+	List<Property> properties = new ArrayList<>();
+	for ( String propertyString : propertyStrings )
+	{
+		properties.add( Property.builder().name( propertyString ).build() );
+	}
+	return properties;
 }
 
 @Override
@@ -114,14 +136,13 @@ public FileVisitResult preVisitDirectory( Path aDir, BasicFileAttributes aAttrib
 	// LOG.debug( "Directory gestart: %s%n", aDir );
 	//LOG.debug( "Directory gestart: {}", aDir );
 	Path path = aDir.toAbsolutePath();
-	PornaFile pornafile = PornaFile.fromDirectory( path.toString(), getPornaConfig() );
+	//PornaFile pornafile = PornaFile.fromDirectory( path.toString(), getPornaConfig() );
 	Directory parentDirectory = getDirectoryLookup().get( path.getParent().toString() );
 	Directory newDirectory = Directory.builder()
 		.name( path.toString() )
 		.dateTimeLastModified( LocalDateTime.ofInstant( aAttributes.lastModifiedTime().toInstant(), ZoneId.systemDefault() ) )
-		.parent( parentDirectory )
-		.pornaFile( pornafile )
 		.pornaConfig( pornaConfig )
+		.parent( parentDirectory )
 		.build();
 	getDirectories().add( newDirectory );
 	getDirectoryLookup().put( path.toString(), newDirectory );

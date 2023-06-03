@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
 import pu.porna.config.PornaConfig;
-import pu.porna.dal.Directory;
-import pu.porna.dal.File;
 import pu.porna.service.PornaService;
 
 import lombok.Data;
@@ -110,9 +110,9 @@ public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) thr
 	
 	aModel.addAttribute( "file", file )
 		.addAttribute( "kwaliteiten", getPornaService().getKwaliteiten() ) 
-		.addAttribute( "deKwaliteit", file.getKwaliteit() )
-		.addAttribute( "types", getPornaService().getTypes() ) 
-		.addAttribute( "deType", file.getType() );
+		.addAttribute( "deKwaliteit", file.getKwaliteit().getName() )
+		.addAttribute( "properties", getPornaService().getProperties() ) 
+		.addAttribute( "deProperties", file.getPropertiesAsStrings() );
 
 	LOG.info( "File request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 	return "file";
@@ -131,13 +131,12 @@ public ModelAndView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateReq
 	String realDirectory = toRealDirectory( directory );
 	String fileName = aFileUpdateRequest.getFileName();
 	String kwaliteit = aFileUpdateRequest.getKwaliteit();
-	String type = aFileUpdateRequest.getType();
+	String property = aFileUpdateRequest.getProperty();
+	String review = aFileUpdateRequest.getReview();
 	
-	getPornaService().saveFile( realDirectory, fileName, kwaliteit, type );
+	getPornaService().saveFile( realDirectory, fileName, kwaliteit, property, review );
 	
 	LOG.info( "File update request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
-	
-	//return new RedirectView( "/file.html?directory=" + directory + "&fileName=" + fileName );
 	
 	// Forward proberen
 	aModel.addAttribute( "directory", directory )

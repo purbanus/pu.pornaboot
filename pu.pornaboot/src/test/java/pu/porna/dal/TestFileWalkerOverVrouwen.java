@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import pu.porna.bo.Directory;
 import pu.porna.config.PornaConfig;
 import pu.porna.util.MatrixFormatter;
 import pu.porna.util.StringHelper;
@@ -34,7 +35,7 @@ public void testFromDirectory() throws IOException
 	assertTrue( directories.size() >= 130 );
 }
 
-//@Test
+@Test
 public void testAndPrint() throws IOException
 {
 	FileWalker walker = new FileWalker( OLD_ALL_DIRECTORY, pornaConfig );

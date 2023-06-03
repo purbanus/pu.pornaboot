@@ -1,4 +1,4 @@
-package pu.porna.dal;
+package pu.porna.bo;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;

@@ -9,10 +9,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import pu.porna.bo.Directory;
+import pu.porna.bo.File;
 import pu.porna.bo.RowBounds;
-import pu.porna.dal.Directory;
-import pu.porna.dal.File;
-import pu.porna.dal.PornaFile;
 
 public class TestFilesContainerImpl
 {
@@ -24,20 +23,22 @@ public void testCloneDirectory() throws IOException
 	Directory subc = Directory.builder().name( "c" ).build();
 	Directory subd = Directory.builder().name( "d" ).build();
 	Directory expected = Directory.builder()
+		.id( 31415 )
 		.name( "pipo" )
 		.dateTimeLastModified( LocalDateTime.of( 2022, 5, 14, 12, 34 ) )
+		.totalNumberOfFiles( files.size() )
 		.parent( Directory.builder()
 			.name( "parent" )
 			.build() )
-		.pornaFile( new PornaFile() )
 		.files( files )
 		.subDirectories( List.of( subc, subd ) )
 		.build();
 	Directory actual = filesContainer.cloneDirectory( expected );
+	assertEquals( expected.getId(), actual.getId() );
 	assertEquals( expected.getName(), actual.getName() );
 	assertEquals( expected.getDateTimeLastModified(), actual.getDateTimeLastModified() );
+	assertEquals( expected.getTotalNumberOfFiles(), actual.getTotalNumberOfFiles() );
 	assertEquals( expected.getParent(), actual.getParent() );
-	assertEquals( expected.getPornaFile(), actual.getPornaFile() );
 	assertEquals( expected.getFiles(), actual.getFiles() );
 	assertEquals( expected.getSubDirectories(), actual.getSubDirectories() );
 

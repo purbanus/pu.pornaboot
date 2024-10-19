@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Tuple;
 
 import org.apache.commons.collections4.map.MultiKeyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import pu.porna.bo.Directory;
@@ -215,11 +217,11 @@ public Directory getDirectory( int aId )
 	List<Directory> directories = convertTuplesToDirectories( tuples );
 	if ( directories.size() == 0 )
 	{
-		throw new RuntimeException( "Dit directory-id bestaat niet: " + aId );
+		throw new EntityNotFoundException( "Dit directory-id bestaat niet: " + aId );
 	}
 	else if ( directories.size() > 1 )
 	{
-		throw new RuntimeException( "Dit directory-id is niet uniek: " + aId );
+		throw new DuplicateKeyException( "Dit directory-id is niet uniek: " + aId );
 	}
 	return directories.get( 0 );
 }

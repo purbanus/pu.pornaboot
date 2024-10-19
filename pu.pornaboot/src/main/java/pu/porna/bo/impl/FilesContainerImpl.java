@@ -126,7 +126,7 @@ public void refresh()
 		.directories( newDirectories )
 		.directoriesMap( newDirectoriesMap )
 		.build(); 
-	log.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 }
 
 void applyPropertiesAndSort( List<Directory> aDirectories )
@@ -168,6 +168,11 @@ public DataHolder getDataHolder()
 		refresh();
 	}
 	return dataholder;
+}
+@Override
+public List<Directory> getAllDirectories()
+{
+	return getDataHolder().getDirectories();
 }
 
 @Override
@@ -213,7 +218,7 @@ Directory applyRowBounds( Directory aDirectory, RowBounds aRowBounds )
 {
 	int offset = Math.min( aRowBounds.getOffset(), aDirectory.getFiles().size() );
 	int limit = Math.min( aRowBounds.getOffset() + aRowBounds.getLimit(), aDirectory.getFiles().size() );
-	log.debug( "Rowbounds for slice = " + offset + ", " + limit );
+	LOG.debug( "Rowbounds for slice = " + offset + ", " + limit );
 	aDirectory.setFiles( aDirectory.getFiles().subList( offset, limit ) );
 	return aDirectory;
 }

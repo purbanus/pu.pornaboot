@@ -2,7 +2,6 @@ package pu.porna.dal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pu.porna.bo.Directory;
 import pu.porna.bo.File;
-import pu.porna.bo.Kwaliteit;
 import pu.porna.bo.Property;
 
 @SpringBootTest

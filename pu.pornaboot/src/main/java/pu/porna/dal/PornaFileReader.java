@@ -83,7 +83,7 @@ private List<String> getValues( String aValuesString )
 private void handleInvalidPornaProperty( String aKey, Object aValue )
 {
 	// @@NOG Mailen?
-	log.error( "Error interpreting pornafile entry with key=" + aKey + " and values=" + aValue );
+	LOG.error( "Error interpreting pornafile entry with key=" + aKey + " and values=" + aValue );
 }
 
 }

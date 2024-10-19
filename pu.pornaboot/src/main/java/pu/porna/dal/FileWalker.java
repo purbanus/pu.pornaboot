@@ -62,6 +62,11 @@ public static String expandHome( String aPath )
 	}
 	return aPath;
 }
+public static LocalDate longToLocalDate( long aLastModified )
+{
+	return LocalDate.ofInstant( Instant.ofEpochMilli( aLastModified ), TimeZone.getDefault().toZoneId() );
+}
+
 public FileWalker( String aStartingDirectory, PornaConfig aPornaConfig )
 {
 	super();
@@ -208,9 +213,5 @@ private boolean isFileOrDirectoryOk( Path aPath )
 		return false;
 	}
 	return true;
-}
-public static LocalDate longToLocalDate( long aLastModified )
-{
-	return LocalDate.ofInstant( Instant.ofEpochMilli( aLastModified ), TimeZone.getDefault().toZoneId() );
 }
 }

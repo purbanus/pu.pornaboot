@@ -55,7 +55,7 @@ public void maakPornaFiles() throws IOException, URISyntaxException
 		PornaFile pornaFile = new PornaFile( directory.getName(), pornaConfig, fileEntries );
 		pornaFile.save();
 	}
-	log.info( "MaakPornaFiles klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "MaakPornaFiles klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 }
 
 public static KwaliteitProperty bepaalKwaliteitPropertyUitDirectory( String aDirectory )

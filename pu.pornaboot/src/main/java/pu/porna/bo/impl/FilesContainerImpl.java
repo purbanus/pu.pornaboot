@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +24,7 @@ import pu.porna.dal.DirectoryConverter;
 import pu.porna.dal.FileRepository;
 import pu.porna.dal.FileWalker;
 import pu.porna.web.OrderBy;
+import pu.services.StopWatch;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Component
 @Slf4j
-//@Data @@NOG Lombok klaagt over een IOException, maar ik zie niet waar dat op slaat
 public class FilesContainerImpl implements FilesContainer
 {
 @Data
@@ -111,12 +109,12 @@ public Directory getDirectory( String aDirectoryName)
 //		.directories( newDirectories )
 //		.directoriesMap( newDirectoriesMap )
 //		.build(); 
-//	log.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+//	LOG.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
 //}
 @Override
 public void refresh()
 {
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 
 	List<Directory> newDirectories = getDirectoryConverter().getAllDirectories();
 	applyPropertiesAndSort( newDirectories );
@@ -126,7 +124,7 @@ public void refresh()
 		.directories( newDirectories )
 		.directoriesMap( newDirectoriesMap )
 		.build(); 
-	LOG.info( "Refresh klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "Refresh klaar in " + timer.getElapsedMs() );
 }
 
 void applyPropertiesAndSort( List<Directory> aDirectories )

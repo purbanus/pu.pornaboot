@@ -6,9 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +15,7 @@ import pu.porna.bo.File;
 import pu.porna.bo.impl.FilesContainerImpl;
 import pu.porna.config.PornaConfig;
 import pu.porna.dal.PornaFile.FileEntry;
+import pu.services.StopWatch;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +41,7 @@ private String property;
 
 public void maakPornaFiles() throws IOException, URISyntaxException
 {
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 	for ( Directory directory : getFilesContainer().getDataHolder().getDirectories() )
 	{
 		KwaliteitProperty typeKwaliteit = bepaalKwaliteitPropertyUitDirectory( directory.getDisplayName() );
@@ -55,7 +54,7 @@ public void maakPornaFiles() throws IOException, URISyntaxException
 		PornaFile pornaFile = new PornaFile( directory.getName(), pornaConfig, fileEntries );
 		pornaFile.save();
 	}
-	LOG.info( "MaakPornaFiles klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "MaakPornaFiles klaar in " + timer.getElapsedMs() );
 }
 
 public static KwaliteitProperty bepaalKwaliteitPropertyUitDirectory( String aDirectory )

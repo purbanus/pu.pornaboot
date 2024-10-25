@@ -2,9 +2,7 @@ package pu.porna.web;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import pu.porna.bo.Directory;
 import pu.porna.bo.File;
 import pu.porna.config.PornaConfig;
 import pu.porna.service.PornaService;
+import pu.services.StopWatch;
 
 import lombok.Data;
 
@@ -39,7 +38,7 @@ private static final Logger LOG = LoggerFactory.getLogger(PornaController.class)
 public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Model aModel ) throws IOException 
 {
 	LOG.info( "Directory request gestart" );
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 	
 	Integer rijen = aDirectoryRequest.getRijen();
 	Integer pageId = aDirectoryRequest.getPageId();
@@ -73,23 +72,23 @@ public String directory( @ModelAttribute DirectoryRequest aDirectoryRequest, Mod
 		.addAttribute( "zoekenVanaf", zoekenVanaf )
 		.addAttribute( "directory", directory )
 		.addAttribute( "orderBy", orderBy );
-	LOG.info( "directory request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "directory request klaar in " + timer.getElapsedMs() );
 	return "directory";
 }
 @GetMapping(value = { "/laaddefaults" })
 public String laadDefaults() throws IOException, URISyntaxException
 {
 	LOG.info( "LaadDefaults request gestart" );
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 	getPornaService().laadDefaults();
-	LOG.info( "LaadDefaults request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "LaadDefaults request klaar in " + timer.getElapsedMs() );
 	return "redirect:/directory";
 }
 @GetMapping(value = { "/file.html" })
 public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) throws IOException 
 {
 	LOG.info( "File request gestart" );
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 
 	String directoryString = aFileRequest.getDirectory();
 	if ( directoryString == null )
@@ -114,7 +113,7 @@ public String file( @ModelAttribute FileRequest aFileRequest, Model aModel ) thr
 		.addAttribute( "properties", getPornaService().getProperties() ) 
 		.addAttribute( "deProperties", file.getPropertiesAsStrings() );
 
-	LOG.info( "File request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "File request klaar in " + timer.getElapsedMs() );
 	return "file";
 }
 public String toRealDirectory( String displayDirectory )
@@ -125,7 +124,7 @@ public String toRealDirectory( String displayDirectory )
 public ModelAndView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateRequest, ModelMap aModel ) throws IOException 
 {
 	LOG.info( "File-update request gestart" );
-	StopWatch timer = StopWatch.createStarted();
+	StopWatch timer = new StopWatch();
 	
 	String directory = aFileUpdateRequest.getDirectory();
 	String realDirectory = toRealDirectory( directory );
@@ -136,7 +135,7 @@ public ModelAndView fileUpdate( @ModelAttribute FileUpdateRequest aFileUpdateReq
 	
 	getPornaService().saveFile( realDirectory, fileName, kwaliteit, property, review );
 	
-	LOG.info( "File update request klaar in " + timer.getTime( TimeUnit.MILLISECONDS ) + "ms" );
+	LOG.info( "File update request klaar in " + timer.getElapsedMs() );
 	
 	// Forward proberen
 	aModel.addAttribute( "directory", directory )
